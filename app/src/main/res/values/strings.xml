@@ -4,4 +4,7 @@
     <string name="request">Request</string>
     <string name="book_name">Book name</string>
     <string name="getting_books">Getting books…</string>
+    <string name="search_books">Search books</string>
+    <string name="tag_line">Libraries and books from well know libraries in Maharashtra</string>
+    <string name="tantraved">Tantraved Jalgaon. 2018</string>
 </resources>

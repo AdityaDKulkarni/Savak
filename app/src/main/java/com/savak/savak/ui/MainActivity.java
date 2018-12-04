@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 URL url = new URL(URLConstants.BASE_URL);
                 urlConnection = (HttpURLConnection) url.openConnection();
-
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "text/xml");
                 urlConnection.setRequestProperty("SOAPAction", ACTION);
@@ -125,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
                     builder.append(line + "\n");
                 }
                 String response = builder.toString();
+
+                Log.e("response", response);
+
                 JSONObject jsonObject = XML.toJSONObject(new String(response));
                 JSONObject soapEnv = jsonObject.optJSONObject("soap:Envelope");
                 JSONObject soapBody = soapEnv.optJSONObject("soap:Body");

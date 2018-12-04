@@ -2,6 +2,7 @@ package com.savak.savak.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,8 +42,9 @@ import java.util.HashMap;
 public class SearchActivity extends AppCompatActivity {
 
     ArrayList<SmartLibraryResponseModel> libraryResponseModels;
+    private TextView tvTagLine;
     private EditText etSearch;
-    private RecyclerView rvBookSearch;
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +52,20 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         libraryResponseModels = new ArrayList<>();
+        tvTagLine = findViewById(R.id.tvTagLine);
+        tvTagLine.setSelected(true);
         etSearch = findViewById(R.id.etSeachBook);
-        rvBookSearch = findViewById(R.id.rvBookSearch);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvBookSearch.getContext(),
-                new LinearLayoutManager(this).getOrientation());
-        rvBookSearch.addItemDecoration(dividerItemDecoration);
-        rvBookSearch.setLayoutManager(new LinearLayoutManager(this));
-
-        etSearch.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+        btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("SearchParam", etSearch.getText().toString());
-                    new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
-                            .execute(etSearch.getText().toString());
-                    return true;
-                }
-                return false;
+            public void onClick(View view) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("SearchParam", etSearch.getText().toString());
+                new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
+                        .execute(etSearch.getText().toString());
             }
         });
+
     }
 
     private class SearchTask extends AsyncTask<String, Void, JSONObject> {
@@ -167,7 +165,11 @@ public class SearchActivity extends AppCompatActivity {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            rvBookSearch.setAdapter(new BookSearchAdapter(libraryResponseModels, context));
+
+            Intent intent = new Intent(SearchActivity.this, SeachResultActivity.class);
+            intent.putExtra("list", libraryResponseModels);
+            intent.putExtra("book_name", map.get("SearchParam"));
+            startActivity(intent);
         }
     }
 }

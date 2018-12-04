@@ -20,12 +20,14 @@ import java.util.ArrayList;
 
 public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.ViewHolder> {
 
-    ArrayList<SmartLibraryResponseModel> libraryResponseModels;
-    Context context;
+    private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
+    private Context context;
+    protected String book_name;
 
-    public BookSearchAdapter(ArrayList<SmartLibraryResponseModel> libraryResponseModels, Context context) {
+    public BookSearchAdapter(ArrayList<SmartLibraryResponseModel> libraryResponseModels, Context context, String book_name) {
         this.libraryResponseModels = libraryResponseModels;
         this.context = context;
+        this.book_name = book_name;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.Vi
         try {
             Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(holder.ivLibraryLogo);
             holder.tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
+            holder.tvLibraryBookName.setText("'" + book_name + "'");
             holder.tvLibraryBookCount.setText("Total " + libraryResponseModels.get(position).getResultCount() + " books");
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +55,7 @@ public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivLibraryLogo;
-        TextView tvLibraryName, tvLibraryBookCount;
+        TextView tvLibraryName, tvLibraryBookCount, tvLibraryBookName;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +65,7 @@ public class BookSearchAdapter extends RecyclerView.Adapter<BookSearchAdapter.Vi
             tvLibraryName.setSelected(true);
             tvLibraryBookCount = itemView.findViewById(R.id.tvSearchLibraryBookCount);
             tvLibraryBookCount.setSelected(true);
+            tvLibraryBookName = itemView.findViewById(R.id.tvSearchBookName);
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.savak.savak.models;
 
-public class SmartLibraryResponseModel extends Object{
+import java.io.Serializable;
+
+public class SmartLibraryResponseModel extends Object implements Serializable{
     private String LastModifiedBy;
 
     public String getLastModifiedBy(){
