@@ -127,13 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.e("response", response);
 
-                /*JSONObject jsonObject = XML.toJSONObject(new String(response));
-                JSONObject soapEnv = jsonObject.optJSONObject("soap:Envelope");
-                JSONObject soapBody = soapEnv.optJSONObject("soap:Body");
-                JSONObject lib = soapBody.optJSONObject("GetSmartLibrariesResponse");
-
-
-                String result = lib.optString("GetSmartLibrariesResult");*/
                 jsonArray = new JSONArray(response);
 
                 for(int i = 0; i < jsonArray.length(); i++){
