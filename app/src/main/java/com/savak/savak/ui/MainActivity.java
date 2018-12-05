@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String response = builder.toString();
 
-                Log.e("response", response);
-
                 jsonArray = new JSONArray(response);
 
                 for(int i = 0; i < jsonArray.length(); i++){
