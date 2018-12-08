@@ -312,4 +312,34 @@ public class SmartLibraryResponseModel extends Object implements Serializable{
     public void setEstablishmentYear(Integer EstablishmentYear){
         this.EstablishmentYear = EstablishmentYear;
     }
+
+    private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    private String RegionName;
+
+    private String Description;
+
+    public String getRegionName() {
+        return RegionName;
+    }
+
+    public void setRegionName(String regionName) {
+        RegionName = regionName;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 }

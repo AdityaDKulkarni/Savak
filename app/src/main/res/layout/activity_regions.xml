@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.savak.savak.ui.RegionsActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvRegions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnAllLibraries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_libraries"
+        android:layout_below="@id/rvRegions"
+        android:layout_marginTop="@dimen/d8dp"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/d4dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
+
+</RelativeLayout>

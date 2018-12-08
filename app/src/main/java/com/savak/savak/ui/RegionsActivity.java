@@ -4,18 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.LinkMovementMethod;
+import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.savak.savak.R;
+import com.savak.savak.adapters.RecyclerAdapter;
+import com.savak.savak.listeners.RecyclerViewItemListener;
 import com.savak.savak.models.SmartLibraryResponseModel;
 import com.savak.savak.utils.ActionTypes;
 import com.savak.savak.utils.SOAPUtils;
@@ -24,7 +27,6 @@ import com.savak.savak.utils.URLConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.XML;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,69 +39,60 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SearchActivity extends AppCompatActivity implements ActionTypes{
+public class RegionsActivity extends AppCompatActivity implements ActionTypes {
 
-    private String TAG = getClass().getSimpleName();
-    ArrayList<SmartLibraryResponseModel> libraryResponseModels;
-    private TextView tvTagLine;
-    private EditText etSearch;
-    private Button btnSearch;
-    private ImageView imgTantravedLogo;
+    private RecyclerView rvRegions;
+    private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_regions);
+        getSupportActionBar().setTitle(getString(R.string.regions));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        initui();
-
-    }
-
-    private void initui() {
         libraryResponseModels = new ArrayList<>();
-        tvTagLine = findViewById(R.id.tvTagLine);
-        tvTagLine.setMovementMethod(LinkMovementMethod.getInstance());
-        etSearch = findViewById(R.id.etSeachBook);
-        btnSearch = findViewById(R.id.btnSearch);
-        imgTantravedLogo = findViewById(R.id.imgViewTantravedLogo);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        rvRegions = findViewById(R.id.rvRegions);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        rvRegions.setLayoutManager(gridLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvRegions.getContext(),
+                new LinearLayoutManager(this).getOrientation());
+        rvRegions.addItemDecoration(dividerItemDecoration);
 
-                if(SOAPUtils.isNetworkConnected(SearchActivity.this)) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("SearchParam", etSearch.getText().toString());
-                    new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
-                            .execute(etSearch.getText().toString());
-                }else{
-                    Toast.makeText(SearchActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+        if (SOAPUtils.isNetworkConnected(this)) {
+            new RegionsAction(URLConstants.REGION_ACTION, new HashMap<String, String>(), this).execute();
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+        }
+
+
+        rvRegions.addOnItemTouchListener(new RecyclerViewItemListener(this, rvRegions, new RecyclerViewItemListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                HashMap<String, Integer> map = new HashMap();
+                map.put("RegionId", libraryResponseModels.get(position).getSrNo());
+                if (SOAPUtils.isNetworkConnected(RegionsActivity.this)) {
+                    Intent intent = new Intent(RegionsActivity.this, RegionSpecificLibrariesActivity.class);
+                    intent.putExtra("map", map);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(RegionsActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
             }
-        });
 
-        tvTagLine.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, RegionsActivity.class);
-                startActivity(intent);
-            }
-        });
+            public void onLongItemClick(View view, int position) {
 
-        imgTantravedLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                startActivity(intent);
             }
-        });
+        }));
     }
 
     @Override
     public int getType() {
-        return ActionTypes.TYPE_SMART_SEARCH;
+        return ActionTypes.TYPE_REGIONS;
     }
 
-    private class SearchTask extends AsyncTask<String, Void, JSONArray> {
+    class RegionsAction extends AsyncTask<Void, Void, JSONArray> {
 
         private String ACTION;
         private HashMap<String, String> map;
@@ -108,7 +101,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes{
         private String TAG = getClass().getSimpleName();
         private JSONArray resultJSONArray;
 
-        public SearchTask(String ACTION, HashMap<String, String> map, Context context) {
+        public RegionsAction(String ACTION, HashMap<String, String> map, Context context) {
             this.ACTION = ACTION;
             this.map = map;
             this.context = context;
@@ -124,7 +117,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes{
         }
 
         @Override
-        protected JSONArray doInBackground(String... strings) {
+        protected JSONArray doInBackground(Void... voids) {
             HttpURLConnection urlConnection;
             OutputStream outputStream;
             InputStream inputStream;
@@ -152,7 +145,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes{
                     outputStream.flush();
                 }
                 code = urlConnection.getResponseCode();
-
                 Log.e(TAG + " response code", String.valueOf(code));
 
                 inputStream = urlConnection.getInputStream();
@@ -177,36 +169,42 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes{
         }
 
         @Override
-        protected void onPostExecute(JSONArray jsonObject) {
+        protected void onPostExecute(JSONArray jsonArray) {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
             try {
-
-
                 libraryResponseModels.clear();
-                for (int i = 0; i < resultJSONArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     SmartLibraryResponseModel model = new SmartLibraryResponseModel();
-                    JSONObject object = null;
-                    try {
-                        object = resultJSONArray.getJSONObject(i);
-                        model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
-                        model.setLibraryName(object.getString("LibraryName"));
-                        model.setResultCount(object.getInt("ResultCount"));
-                        model.setType(getType());
-                        libraryResponseModels.add(model);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    model.setSrNo(object.getInt("SrNo"));
+                    model.setRegionName(object.getString("RegionName"));
+                    model.setDescription(object.getString("Description"));
+                    model.setCreatedBy(object.getString("CreatedBy"));
+                    model.setCreatedDate(object.getString("CreatedDate"));
+                    model.setLastModifiedBy(object.getString("LastModifiedBy"));
+                    model.setLastModifiedDate(object.getString("LastModifiedDate"));
+                    model.setType(getType());
+                    libraryResponseModels.add(model);
                 }
 
-                Intent intent = new Intent(SearchActivity.this, SeachResultActivity.class);
-                intent.putExtra("list", libraryResponseModels);
-                intent.putExtra("book_name", map.get("SearchParam"));
-                startActivity(intent);
-            }catch (Exception e){
+                rvRegions.setAdapter(new RecyclerAdapter(libraryResponseModels, RegionsActivity.this, ""));
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return false;
     }
 }

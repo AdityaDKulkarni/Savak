@@ -2,16 +2,15 @@ package com.savak.savak.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.savak.savak.R;
 import com.savak.savak.adapters.RecyclerAdapter;
@@ -35,47 +34,50 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements ActionTypes{
+public class RegionSpecificLibrariesActivity extends AppCompatActivity implements ActionTypes {
 
-    ArrayList<SmartLibraryResponseModel> libraryResponseModels;
-    private RecyclerView recyclerView;
-    private FloatingActionButton fabSeach;
+
+    private RecyclerView rvRegionLibraries;
+    private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
+    private HashMap<String, Integer> map;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_region_specific_libraries);
+        getSupportActionBar().setTitle(getString(R.string.updated_libraries));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         libraryResponseModels = new ArrayList<>();
-        fabSeach = findViewById(R.id.fabSearch);
-        fabSeach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView = findViewById(R.id.rvSmartLibraries);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+        rvRegionLibraries = findViewById(R.id.rvRegionLibraries);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvRegionLibraries.getContext(),
                 new LinearLayoutManager(this).getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        new SOAPTask(MainActivity.this, URLConstants.LIBRARY_ACTION, new HashMap<String, String>()).execute();
+        rvRegionLibraries.addItemDecoration(dividerItemDecoration);
+        rvRegionLibraries.setLayoutManager(new LinearLayoutManager(this));
+        if(getIntent().hasExtra("map")){
+            map = (HashMap<String, Integer>) getIntent().getExtras().get("map");
+            if(SOAPUtils.isNetworkConnected(this)) {
+                new GetRegionLibraries(this, URLConstants.LIBRARY_ACTION, map).execute();
+            }else{
+                Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
     public int getType() {
-        return ActionTypes.TYPE_SMART_LIBRARY;
+        return ActionTypes.TYPE_REGION_LIBRARIES;
     }
 
-    private class SOAPTask extends AsyncTask<Void, Void, JSONArray> {
+    private class GetRegionLibraries extends AsyncTask<Void, Void, JSONArray> {
 
         private String ACTION;
-        private HashMap<String, String> map;
+        private HashMap<String, Integer> map;
         private ProgressDialog progressDialog;
         private Context context;
         private String TAG = getClass().getSimpleName();
 
-        public SOAPTask(Context context, String ACTION, HashMap<String, String> map) {
+        public GetRegionLibraries(Context context, String ACTION, HashMap<String, Integer> map) {
             this.context = context;
             this.ACTION = ACTION;
             this.map = map;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage(context.getString(R.string.please_wait));
+            progressDialog.setMessage(context.getString(R.string.getting_Smart_libraries));
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setCancelable(false);
             progressDialog.show();
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "text/xml");
                 urlConnection.setRequestProperty("SOAPAction", ACTION);
-                urlConnection.setRequestProperty("Content-length", SOAPUtils.getData(ACTION, map).length + "");
+                urlConnection.setRequestProperty("Content-length", SOAPUtils.getIntData(ACTION, map).length + "");
                 HttpURLConnection.setFollowRedirects(false);
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
                 urlConnection.connect();
                 outputStream = urlConnection.getOutputStream();
                 if (outputStream != null) {
-                    outputStream.write(SOAPUtils.getData(ACTION, map));
+                    outputStream.write(SOAPUtils.getIntData(ACTION, map));
                     outputStream.flush();
                 }
                 code = urlConnection.getResponseCode();
@@ -128,22 +130,8 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
                     builder.append(line + "\n");
                 }
                 String response = builder.toString();
-
+                Log.e(TAG, response);
                 jsonArray = new JSONArray(response);
-
-                for(int i = 0; i < jsonArray.length(); i++){
-                    SmartLibraryResponseModel model = new SmartLibraryResponseModel();
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
-                    Log.e("Logo", model.getLogoImage());
-                    model.setLibraryName(object.getString("LibraryName"));
-                    model.setAddress1(object.getString("Address1"));
-                    model.setAddress2(object.getString("Address2"));
-                    model.setM_CityName(object.getString("M_CityName"));
-                    model.setPIN(object.getString("PIN"));
-                    model.setType(getType());
-                    libraryResponseModels.add(model);
-                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -156,11 +144,38 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
         }
 
         @Override
-        protected void onPostExecute(JSONArray jsonObject) {
+        protected void onPostExecute(JSONArray jsonArray) {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            recyclerView.setAdapter(new RecyclerAdapter(libraryResponseModels, context, ""));
+            try{
+                for(int i = 0; i < jsonArray.length(); i++){
+                    SmartLibraryResponseModel model = new SmartLibraryResponseModel();
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
+                    model.setLibraryName(object.getString("LibraryName"));
+                    model.setAddress1(object.getString("Address1"));
+                    model.setAddress2(object.getString("Address2"));
+                    model.setM_CityName(object.getString("M_CityName"));
+                    model.setPIN(object.getString("PIN"));
+                    model.setType(getType());
+                    libraryResponseModels.add(model);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            rvRegionLibraries.setAdapter(new RecyclerAdapter(libraryResponseModels, context, ""));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return false;
     }
 }

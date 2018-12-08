@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Savak</string>
     <string name="getting_Smart_libraries">Getting smart libraries…</string>
-    <string name="request">Request</string>
     <string name="book_name">Book name</string>
     <string name="getting_books">Getting books…</string>
     <string name="search_books">Search books</string>
-    <string name="tag_line">Libraries and books from well know libraries in Maharashtra</string>
+    <string name="tag_line"><a href="http://tantraved.in/Android/Regions.aspx">Libraries</a> and books from well know libraries in Maharashtra</string>
     <string name="tantraved">Tantraved Jalgaon. 2018</string>
+    <string name="regions">Regions</string>
+    <string name="please_wait">Please wait</string>
+    <string name="all_libraries">All libraries</string>
+    <string name="enter">Enter</string>
+    <string name="updated_libraries">Updated libraries</string>
+    <string name="no_internet_connection">No internet connection</string>
 </resources>

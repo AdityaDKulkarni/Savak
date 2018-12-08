@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.savak.savak.R;
-import com.savak.savak.adapters.BookSearchAdapter;
+import com.savak.savak.adapters.RecyclerAdapter;
 import com.savak.savak.models.SmartLibraryResponseModel;
 
 import java.util.ArrayList;
@@ -33,14 +33,14 @@ public class SeachResultActivity extends AppCompatActivity {
         if(getIntent().hasExtra("list") && getIntent().hasExtra("book_name")){
             ArrayList<SmartLibraryResponseModel> libraryResponseModels = (ArrayList<SmartLibraryResponseModel>) getIntent().getExtras().get("list");
             String book_name = getIntent().getStringExtra("book_name");
-            rvBookSearch.setAdapter(new BookSearchAdapter(libraryResponseModels, SeachResultActivity.this, book_name));
+            rvBookSearch.setAdapter(new RecyclerAdapter(libraryResponseModels, this, book_name));
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.home:
+            case android.R.id.home:
                 onBackPressed();
                 return true;
         }

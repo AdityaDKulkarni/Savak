@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +10,9 @@
         android:id="@+id/ivLogo"
         android:layout_width="@dimen/d100dp"
         android:layout_height="@dimen/d100dp"
+        android:src="@drawable/mhlibraries"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:layout_marginTop="@dimen/d90dp"
+        android:layout_marginTop="@dimen/d50dp"
         android:layout_marginBottom="@dimen/d8dp"/>
 
     <TextView
@@ -21,8 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tag_line"
-        android:ellipsize="marquee"
-        android:singleLine="true"
         android:layout_below="@id/ivLogo"
         android:gravity="center"
         android:layout_margin="@dimen/d8dp"
@@ -50,8 +47,17 @@
         android:textColor="@color/white"
         android:background="@color/colorPrimary"
         android:layout_below="@id/tvTagLine"
+        android:padding="@dimen/d4dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/d8dp" />
+
+    <ImageView
+        android:id="@+id/imgViewTantravedLogo"
+        android:layout_width="@dimen/d100dp"
+        android:layout_height="@dimen/d100dp"
+        android:src="@drawable/tantraved_logo"
+        android:layout_above="@id/tvTantraved"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/tvTantraved"
@@ -59,7 +65,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tantraved"
         android:gravity="center"
-        android:layout_below="@id/etSeachBook"
-        android:layout_margin="@dimen/d8dp"/>
+        android:layout_margin="@dimen/d8dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
