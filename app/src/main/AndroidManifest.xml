@@ -22,7 +22,8 @@
         </activity>
         <activity android:name=".ui.SeachResultActivity" />
         <activity android:name=".ui.RegionsActivity" />
-        <activity android:name=".ui.RegionSpecificLibrariesActivity"></activity>
+        <activity android:name=".ui.RegionSpecificLibrariesActivity" />
+        <activity android:name=".ui.AboutUsActivity"></activity>
     </application>
 
 </manifest>

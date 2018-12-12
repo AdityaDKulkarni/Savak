@@ -16,10 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/d8dp"
         android:layout_marginStart="@dimen/d8dp"
-        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -33,7 +32,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -47,7 +45,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -61,7 +58,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -75,7 +71,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 

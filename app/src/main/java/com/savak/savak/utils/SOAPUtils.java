@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class SOAPUtils {
 
-    public static byte[] getData(String ACTION, HashMap<String, String> map) {
+    public static byte[] getData(String ACTION, HashMap<String, Object> map) {
         StringBuilder builder = new StringBuilder();
         builder.append(getRequestMap(ACTION, map));
         return builder.toString().trim().getBytes();
@@ -26,7 +26,7 @@ public class SOAPUtils {
     }
 
     public static String getRequestMap(String ACTION,
-                                 HashMap<String, String> map) {
+                                 HashMap<String, Object> map) {
         String SOAPRequestXML = null;
         String split[] = ACTION.split("/");
         if (split.length > 0) {
@@ -52,7 +52,6 @@ public class SOAPUtils {
             SOAPRequestXML = "<?xml version='1.0' encoding='utf-8'?>"
                     + "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'  xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>"
                     + "<soap:Body>" + "<" + METHOD
-
                     + " xmlns='http://tantraved.in/'>" + createIntRequest(map)
                     + "</" + METHOD + ">" + "</soap:Body>"
                     + "</soap:Envelope>";
@@ -61,9 +60,9 @@ public class SOAPUtils {
         return SOAPRequestXML;
     }
 
-    private static String createRequest(HashMap<String, String> map) {
+    private static String createRequest(HashMap<String, Object> map) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
             sb.append("<");
             sb.append(entry.getKey());
             sb.append(">");

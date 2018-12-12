@@ -152,6 +152,7 @@ public class RegionSpecificLibrariesActivity extends AppCompatActivity implement
                 for(int i = 0; i < jsonArray.length(); i++){
                     SmartLibraryResponseModel model = new SmartLibraryResponseModel();
                     JSONObject object = jsonArray.getJSONObject(i);
+                    model.setSrNo(object.getInt("SrNo"));
                     model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
                     model.setLibraryName(object.getString("LibraryName"));
                     model.setAddress1(object.getString("Address1"));

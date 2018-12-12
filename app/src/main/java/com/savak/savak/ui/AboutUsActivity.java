@@ -2,23 +2,21 @@ package com.savak.savak.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.LinearGradient;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.LinkMovementMethod;
+import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.savak.savak.R;
+import com.savak.savak.adapters.RecyclerAdapter;
 import com.savak.savak.models.SmartLibraryResponseModel;
-import com.savak.savak.utils.ActionTypes;
 import com.savak.savak.utils.SOAPUtils;
 import com.savak.savak.utils.URLConstants;
 
@@ -34,68 +32,65 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SearchActivity extends AppCompatActivity implements ActionTypes {
+public class AboutUsActivity extends AppCompatActivity {
 
+    private ImageView ivLibraryLogo;
+    private TextView tvLibraryAboutUS, title, tvLibraryName, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin;
+    private Button btnEnter;
+    private SmartLibraryResponseModel libraryResponseModel;
     private String TAG = getClass().getSimpleName();
-    ArrayList<SmartLibraryResponseModel> libraryResponseModels;
-    private TextView tvTagLine, tvTantraved;
-    private EditText etSearch;
-    private Button btnSearch;
+    private int srno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_about_us);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
-        TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
-        title.setText(getString(R.string.smart_library));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initui();
-
     }
 
     private void initui() {
-        libraryResponseModels = new ArrayList<>();
-        tvTagLine = findViewById(R.id.tvTagLine);
-        tvTagLine.setMovementMethod(LinkMovementMethod.getInstance());
-        tvTantraved = findViewById(R.id.tvTantraved);
-        tvTantraved.setMovementMethod(LinkMovementMethod.getInstance());
-        etSearch = findViewById(R.id.etSeachBook);
-        btnSearch = findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (SOAPUtils.isNetworkConnected(SearchActivity.this)) {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("SearchParam", etSearch.getText().toString());
-                    new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
-                            .execute();
-                } else {
-                    Toast.makeText(SearchActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
-                }
+        title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        tvLibraryAboutUS = findViewById(R.id.tvLibraryAboutUs);
+        tvLibraryAboutUS.setMovementMethod(new ScrollingMovementMethod());
+        ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
+        tvLibraryName = findViewById(R.id.tvLibraryName);
+        tvLibraryName.setSelected(true);
+        tvLibraryAddress1 = findViewById(R.id.tvLibraryAddress1);
+        tvLibraryAddress1.setSelected(true);
+        tvLibraryAddress2 = findViewById(R.id.tvLibraryAddress2);
+        tvLibraryAddress2.setSelected(true);
+        tvLibraryMCity = findViewById(R.id.tvLibraryMCity);
+        tvLibraryMCity.setSelected(true);
+        tvLibraryPin = findViewById(R.id.tvLibraryPin);
+        btnEnter = findViewById(R.id.btnEnter);
+        if(getIntent().hasExtra("library")){
+            libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
+            title.setText(libraryResponseModel.getLibraryName());
+            try {
+                Glide.with(this).load(libraryResponseModel.getLogoImage()).into(ivLibraryLogo);
+                tvLibraryName.setText(libraryResponseModel .getLibraryName());
+                tvLibraryAddress1.setText(libraryResponseModel .getAddress1());
+                tvLibraryAddress2.setText(libraryResponseModel .getAddress2());
+                tvLibraryMCity.setText(libraryResponseModel .getM_CityName());
+                tvLibraryPin.setText(" - " + libraryResponseModel .getPIN());
+                srno = libraryResponseModel.getSrNo();
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("LibraryId",libraryResponseModel.getSrNo());
+                map.put("DatabaseName","LIBRARY");
+                new GetAboutUsTask(URLConstants.ABOUT_US_ACTION,map, this).execute();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-
-        tvTagLine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, RegionsActivity.class);
-                startActivity(intent);
-            }
-        });
+        }
     }
 
-    @Override
-    public int getType() {
-        return ActionTypes.TYPE_SMART_SEARCH;
-    }
-
-    private class SearchTask extends AsyncTask<String, Void, JSONArray> {
+    class GetAboutUsTask extends AsyncTask<Void, Void, JSONArray>{
 
         private String ACTION;
         private HashMap<String, Object> map;
@@ -104,7 +99,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         private String TAG = getClass().getSimpleName();
         private JSONArray resultJSONArray;
 
-        public SearchTask(String ACTION, HashMap<String, Object> map, Context context) {
+        public GetAboutUsTask(String ACTION, HashMap<String, Object> map, Context context){
             this.ACTION = ACTION;
             this.map = map;
             this.context = context;
@@ -120,7 +115,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         }
 
         @Override
-        protected JSONArray doInBackground(String... strings) {
+        protected JSONArray doInBackground(Void... voids) {
             HttpURLConnection urlConnection;
             OutputStream outputStream;
             InputStream inputStream;
@@ -148,7 +143,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                     outputStream.flush();
                 }
                 code = urlConnection.getResponseCode();
-
                 Log.e(TAG + " response code", String.valueOf(code));
 
                 inputStream = urlConnection.getInputStream();
@@ -173,35 +167,18 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         }
 
         @Override
-        protected void onPostExecute(JSONArray jsonObject) {
+        protected void onPostExecute(JSONArray jsonArray) {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
             try {
-
-
-                libraryResponseModels.clear();
-                for (int i = 0; i < resultJSONArray.length(); i++) {
-                    SmartLibraryResponseModel model = new SmartLibraryResponseModel();
-                    JSONObject object = null;
-                    try {
-                        object = resultJSONArray.getJSONObject(i);
-                        model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
-                        model.setLibraryName(object.getString("LibraryName"));
-                        model.setResultCount(object.getInt("ResultCount"));
-                        model.setType(getType());
-                        libraryResponseModels.add(model);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    if (srno == jsonArray.getJSONObject(i).getInt("SrNo")) {
+                        tvLibraryAboutUS.setText(jsonArray.getJSONObject(i).get("AboutUsNote").toString());
                     }
                 }
+            }catch (Exception e){
 
-                Intent intent = new Intent(SearchActivity.this, SeachResultActivity.class);
-                intent.putExtra("list", libraryResponseModels);
-                intent.putExtra("book_name", map.get("SearchParam").toString());
-                startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

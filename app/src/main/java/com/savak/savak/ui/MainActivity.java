@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
                 new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        new SOAPTask(MainActivity.this, URLConstants.LIBRARY_ACTION, new HashMap<String, String>()).execute();
+        new SOAPTask(MainActivity.this, URLConstants.LIBRARY_ACTION, new HashMap<String, Object>()).execute();
     }
 
     @Override
@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity implements ActionTypes{
     private class SOAPTask extends AsyncTask<Void, Void, JSONArray> {
 
         private String ACTION;
-        private HashMap<String, String> map;
+        private HashMap<String, Object> map;
         private ProgressDialog progressDialog;
         private Context context;
         private String TAG = getClass().getSimpleName();
 
-        public SOAPTask(Context context, String ACTION, HashMap<String, String> map) {
+        public SOAPTask(Context context, String ACTION, HashMap<String, Object> map) {
             this.context = context;
             this.ACTION = ACTION;
             this.map = map;

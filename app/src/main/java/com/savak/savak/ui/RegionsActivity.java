@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.savak.savak.R;
@@ -43,15 +46,24 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
 
     private RecyclerView rvRegions;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
+    private Button btnAllLibraries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regions);
-        getSupportActionBar().setTitle(getString(R.string.regions));
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+        TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setText(getString(R.string.regions));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        initui();
+    }
+
+    private void initui(){
         libraryResponseModels = new ArrayList<>();
+        btnAllLibraries = findViewById(R.id.btnAllLibraries);
         rvRegions = findViewById(R.id.rvRegions);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rvRegions.setLayoutManager(gridLayoutManager);
@@ -60,7 +72,7 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
         rvRegions.addItemDecoration(dividerItemDecoration);
 
         if (SOAPUtils.isNetworkConnected(this)) {
-            new RegionsAction(URLConstants.REGION_ACTION, new HashMap<String, String>(), this).execute();
+            new RegionsAction(URLConstants.REGION_ACTION, new HashMap<String, Object>(), this).execute();
         } else {
             Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
         }
@@ -85,6 +97,21 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
 
             }
         }));
+
+        btnAllLibraries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String, Integer> map = new HashMap();
+                map.put("RegionId", 0);
+                if (SOAPUtils.isNetworkConnected(RegionsActivity.this)) {
+                    Intent intent = new Intent(RegionsActivity.this, RegionSpecificLibrariesActivity.class);
+                    intent.putExtra("map", map);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(RegionsActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -95,13 +122,13 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
     class RegionsAction extends AsyncTask<Void, Void, JSONArray> {
 
         private String ACTION;
-        private HashMap<String, String> map;
+        private HashMap<String, Object> map;
         private ProgressDialog progressDialog;
         private Context context;
         private String TAG = getClass().getSimpleName();
         private JSONArray resultJSONArray;
 
-        public RegionsAction(String ACTION, HashMap<String, String> map, Context context) {
+        public RegionsAction(String ACTION, HashMap<String, Object> map, Context context) {
             this.ACTION = ACTION;
             this.map = map;
             this.context = context;
@@ -178,6 +205,7 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     SmartLibraryResponseModel model = new SmartLibraryResponseModel();
                     JSONObject object = jsonArray.getJSONObject(i);
+                    Log.e("set srno", object.getInt("SrNo") + "");
                     model.setSrNo(object.getInt("SrNo"));
                     model.setRegionName(object.getString("RegionName"));
                     model.setDescription(object.getString("Description"));

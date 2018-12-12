@@ -1,7 +1,9 @@
 package com.savak.savak.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.savak.savak.R;
 import com.savak.savak.models.SmartLibraryResponseModel;
+import com.savak.savak.ui.AboutUsActivity;
 import com.savak.savak.utils.ActionTypes;
 
 import java.util.ArrayList;
@@ -188,14 +191,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             btnEnter = itemView.findViewById(R.id.btnEnter);
         }
 
-        public void bindView(int position) {
+        public void bindView(final int position) {
             try {
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
                 tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
                 tvLibraryAddress2.setText(libraryResponseModels.get(position).getAddress2());
                 tvLibraryMCity.setText(libraryResponseModels.get(position).getM_CityName());
-                tvLibraryPin.setText(libraryResponseModels.get(position).getPIN());
+                tvLibraryPin.setText(" - " + libraryResponseModels.get(position).getPIN());
+
+                tvLibraryName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, AboutUsActivity.class);
+                        intent.putExtra("library", libraryResponseModels.get(position));
+                        Log.e("Intent", libraryResponseModels.get(position).getSrNo() + "");
+                        context.startActivity(intent);
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

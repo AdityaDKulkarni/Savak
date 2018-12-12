@@ -10,4 +10,7 @@
     <dimen name="d150dp">150dp</dimen>
     <dimen name="d6dp">6dp</dimen>
     <dimen name="d3dp">3dp</dimen>
+    <dimen name="d125dp">125dp</dimen>
+    <dimen name="s20sp">20sp</dimen>
+    <dimen name="d1dp">1dp</dimen>
 </resources>

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="@dimen/d100dp"
-        android:layout_height="@dimen/d100dp"
+        android:layout_width="@dimen/d125dp"
+        android:layout_height="@dimen/d125dp"
         android:src="@drawable/mhlibraries"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/d50dp"
@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/imgViewTantravedLogo"
-        android:layout_width="@dimen/d100dp"
-        android:layout_height="@dimen/d100dp"
+        android:layout_width="@dimen/d125dp"
+        android:layout_height="@dimen/d125dp"
         android:src="@drawable/tantraved_logo"
         android:layout_above="@id/tvTantraved"
         android:layout_centerHorizontal="true"/>

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/ivLibraryLogo"
-        android:layout_width="@dimen/d75dp"
-        android:layout_height="@dimen/d75dp"
+        android:layout_width="@dimen/d50dp"
+        android:layout_height="@dimen/d50dp"
         android:layout_centerVertical="true" />
 
     <TextView
@@ -18,10 +18,9 @@
         android:layout_marginStart="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
-        android:textSize="@dimen/s16sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/s16sp" />
 
     <TextView
         android:id="@+id/tvLibraryAddress1"
@@ -33,7 +32,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -47,7 +45,6 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
@@ -73,21 +70,18 @@
         android:layout_marginTop="@dimen/d8dp"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
         android:singleLine="true"
+        android:textStyle="bold"
         android:textSize="@dimen/s16sp" />
 
     <TextView
         android:id="@+id/tvLibraryPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/tvLibraryName"
-        android:layout_alignStart="@id/tvLibraryName"
-        android:layout_below="@id/tvLibraryMCity"
-        android:layout_marginTop="@dimen/d8dp"
-        android:layout_toEndOf="@id/ivLibraryLogo"
-        android:layout_toRightOf="@id/ivLibraryLogo"
-        android:ellipsize="marquee"
+        android:layout_alignBottom="@id/tvLibraryMCity"
+        android:layout_alignTop="@id/tvLibraryMCity"
+        android:layout_toEndOf="@id/tvLibraryMCity"
+        android:layout_toRightOf="@id/tvLibraryMCity"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
 
