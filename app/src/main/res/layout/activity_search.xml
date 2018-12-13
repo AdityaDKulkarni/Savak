@@ -19,7 +19,6 @@
         android:id="@+id/tvTagLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tag_line"
         android:layout_below="@id/ivLogo"
         android:gravity="center"
         android:layout_margin="@dimen/d8dp"

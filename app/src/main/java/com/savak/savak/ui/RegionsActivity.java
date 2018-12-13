@@ -54,6 +54,7 @@ public class RegionsActivity extends AppCompatActivity implements ActionTypes {
         setContentView(R.layout.activity_regions);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
         title.setText(getString(R.string.regions));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -3,11 +3,16 @@ package com.savak.savak.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.LinearGradient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +41,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements ActionTypes {
 
@@ -50,6 +56,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
         TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
         title.setText(getString(R.string.smart_library));
@@ -60,7 +67,31 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
 
     private void initui() {
         libraryResponseModels = new ArrayList<>();
+
+        SpannableString spannableString = new SpannableString(getString(R.string.tag_line));
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, RegionsActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(true);
+            }
+        };
+
+        if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english")){
+            Log.e("Locale", "english");
+            spannableString.setSpan(clickableSpan, 0, 9, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        }else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("मराठी")){
+            Log.e("Locale", "मराठी");
+            spannableString.setSpan(clickableSpan, 22, 30, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        }
         tvTagLine = findViewById(R.id.tvTagLine);
+        tvTagLine.setText(spannableString);
         tvTagLine.setMovementMethod(LinkMovementMethod.getInstance());
         tvTantraved = findViewById(R.id.tvTantraved);
         tvTantraved.setMovementMethod(LinkMovementMethod.getInstance());
@@ -78,14 +109,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 } else {
                     Toast.makeText(SearchActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        tvTagLine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, RegionsActivity.class);
-                startActivity(intent);
             }
         });
     }

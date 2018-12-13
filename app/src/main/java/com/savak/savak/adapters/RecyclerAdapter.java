@@ -3,6 +3,7 @@ package com.savak.savak.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -194,7 +195,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void bindView(final int position) {
             try {
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
-                tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
+                tvLibraryName.setText(Html.fromHtml("<u>" + libraryResponseModels.get(position).getLibraryName() + "</u>"));
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
                 tvLibraryAddress2.setText(libraryResponseModels.get(position).getAddress2());
                 tvLibraryMCity.setText(libraryResponseModels.get(position).getM_CityName());
