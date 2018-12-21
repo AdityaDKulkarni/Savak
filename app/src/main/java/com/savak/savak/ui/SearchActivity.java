@@ -30,6 +30,12 @@ import com.savak.savak.utils.URLConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,9 +44,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements ActionTypes {
@@ -83,10 +92,10 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
             }
         };
 
-        if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english")){
+        if (Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english")) {
             Log.e("Locale", "english");
             spannableString.setSpan(clickableSpan, 0, 9, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        }else if(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("मराठी")){
+        } else if (Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("मराठी")) {
             Log.e("Locale", "मराठी");
             spannableString.setSpan(clickableSpan, 22, 30, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         }
@@ -105,7 +114,8 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("SearchParam", etSearch.getText().toString());
                     new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
-                            .execute();
+                            .execute(etSearch.getText().toString());
+
                 } else {
                     Toast.makeText(SearchActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
@@ -183,6 +193,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 }
                 String response = builder.toString();
                 Log.e(TAG, response);
+
                 resultJSONArray = new JSONArray(response);
 
             } catch (MalformedURLException e) {
