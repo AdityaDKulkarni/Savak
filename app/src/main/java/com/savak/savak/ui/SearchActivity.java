@@ -212,8 +212,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 progressDialog.dismiss();
             }
             try {
-
-
                 libraryResponseModels.clear();
                 for (int i = 0; i < resultJSONArray.length(); i++) {
                     SmartLibraryResponseModel model = new SmartLibraryResponseModel();

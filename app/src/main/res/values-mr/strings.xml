@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_books">ग्रंथशोध</string>
+    <string name="app_name">सावक</string>
+    <string name="getting_Smart_libraries">स्मार्ट लायब्ररी मिळविणे…</string>
+    <string name="book_name">पुस्तकाचे नाव</string>
+    <string name="getting_books">पुस्तके मिळवणे…</string>
+    <string name="tag_line">महाराष्ट्रातील नामवंत <a href="http://tantraved.in/Android/Regions.aspx">वाचनालये</a> आणि पुस्तकांचा खजिना</string>
+    <string name="tantraved"><a href="http://www.tantraved.in/">तंत्रवेद</a> जळगांव. २०१८</string>
+    <string name="regions">विभाग</string>
+    <string name="please_wait">कृपया थांबा</string>
+    <string name="all_libraries">संपूर्ण वाचनालये</string>
+    <string name="enter">प्रवेश</string>
+    <string name="updated_libraries">अद्ययावत वाचनालये</string>
+    <string name="no_internet_connection">इंटरनेट कनेक्शन नाही</string>
+    <string name="smart_library">||स्मार्ट लायब्ररी||</string>
+</resources>
