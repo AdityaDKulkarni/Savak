@@ -17,7 +17,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Locale locale = new Locale("mr");
+        /*Locale locale = new Locale("mr");
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
@@ -30,6 +30,6 @@ public class App extends Application {
             getApplicationContext().createConfigurationContext(configuration);
         } else {
             resources.updateConfiguration(configuration, displayMetrics);
-        }
+        }*/
     }
 }

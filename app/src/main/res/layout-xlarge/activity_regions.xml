@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.savak.savak.ui.RegionsActivity">
+    tools:context="com.savak.savak.ui.RegionsActivity"
+    android:id="@+id/relativeLayout3">
 
     <EditText
         android:id="@+id/etRegionSearchBook"
@@ -11,46 +13,52 @@
         android:layout_height="wrap_content"
         android:hint="@string/book_name"
         android:layout_marginStart="@dimen/d4dp"
-        android:layout_alignBottom="@id/btnRegionSearchBook"
-        android:layout_toStartOf="@id/btnRegionSearchBook"
-        android:layout_toLeftOf="@id/btnRegionSearchBook"
         android:layout_marginEnd="@dimen/d8dp"
         android:layout_marginRight="@dimen/d8dp"
-        android:layout_marginLeft="@dimen/d4dp" />
+        android:layout_marginLeft="@dimen/d4dp"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintRight_toLeftOf="@id/btnRegionSearchBook"
+        app:layout_constraintBottom_toBottomOf="@id/btnRegionSearchBook"
+        app:layout_constraintEnd_toStartOf="@id/btnRegionSearchBook" />
 
     <Button
         android:id="@+id/btnRegionSearchBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:background="@color/colorAccent"
         android:text="@string/search_books"
-        android:textAllCaps="false"
         android:padding="@dimen/d8dp"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:layout_marginEnd="@dimen/d4dp"
         android:layout_marginTop="@dimen/d8dp"
-        android:layout_marginRight="@dimen/d4dp" />
+        android:layout_marginRight="@dimen/d4dp"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRegions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/d8dp"
-        android:layout_below="@id/btnRegionSearchBook"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRegionSearchBook" />
 
     <Button
         android:id="@+id/btnAllLibraries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/all_libraries"
-        android:layout_below="@id/rvRegions"
         android:layout_marginTop="@dimen/d8dp"
-        android:layout_centerHorizontal="true"
         android:padding="@dimen/d8dp"
+        android:textSize="@dimen/s24sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/rvRegions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

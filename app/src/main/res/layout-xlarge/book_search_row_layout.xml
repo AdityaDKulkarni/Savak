@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/d8dp"
+    android:id="@+id/relativeLayout2">
+
+    <ImageView
+        android:id="@+id/ivSearchLibraryLogo"
+        android:layout_width="@dimen/d100dp"
+        android:layout_height="@dimen/d100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSearchLibraryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d8dp"
+        android:layout_marginStart="@dimen/d8dp"
+        android:textStyle="bold"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ivSearchLibraryLogo"
+        app:layout_constraintStart_toEndOf="@id/ivSearchLibraryLogo" />
+
+    <TextView
+        android:id="@+id/tvSearchBookName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d8dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="@id/tvSearchLibraryName"
+        app:layout_constraintLeft_toRightOf="@id/ivSearchLibraryLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchLibraryName"
+        app:layout_constraintStart_toEndOf="@id/ivSearchLibraryLogo"
+        app:layout_constraintLeft_toLeftOf="@id/tvSearchLibraryName" />
+
+    <TextView
+        android:id="@+id/tvSearchLibraryBookCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d8dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="@id/tvSearchLibraryName"
+        app:layout_constraintLeft_toRightOf="@id/ivSearchLibraryLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchBookName"
+        app:layout_constraintStart_toEndOf="@id/ivSearchLibraryLogo"
+        app:layout_constraintLeft_toLeftOf="@id/tvSearchLibraryName" />
+
+</android.support.constraint.ConstraintLayout>

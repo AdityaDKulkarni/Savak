@@ -9,13 +9,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/d8dp"
-        android:layout_marginLeft="@dimen/d8dp">
+        android:layout_marginLeft="@dimen/d8dp"
+        android:layout_marginStart="@dimen/d8dp">
 
         <ImageView
             android:id="@+id/ivLibraryLogo"
-            android:layout_width="@dimen/d50dp"
-            android:layout_height="@dimen/d50dp"
+            android:layout_width="@dimen/d100dp"
+            android:layout_height="@dimen/d100dp"
             android:layout_centerVertical="true" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_toEndOf="@id/ivLibraryLogo"
             android:layout_toRightOf="@id/ivLibraryLogo"
             android:singleLine="true"
-            android:textSize="@dimen/s16sp" />
+            android:textSize="@dimen/s24sp" />
 
         <TextView
             android:id="@+id/tvLibraryAddress1"
@@ -40,7 +40,7 @@
             android:layout_toEndOf="@id/ivLibraryLogo"
             android:layout_toRightOf="@id/ivLibraryLogo"
             android:singleLine="true"
-            android:textSize="@dimen/s16sp" />
+            android:textSize="@dimen/s24sp" />
 
         <TextView
             android:id="@+id/tvLibraryAddress2"
@@ -53,7 +53,7 @@
             android:layout_toEndOf="@id/ivLibraryLogo"
             android:layout_toRightOf="@id/ivLibraryLogo"
             android:singleLine="true"
-            android:textSize="@dimen/s16sp" />
+            android:textSize="@dimen/s24sp" />
 
         <TextView
             android:id="@+id/tvLibraryMCity"
@@ -66,8 +66,8 @@
             android:layout_toEndOf="@id/ivLibraryLogo"
             android:layout_toRightOf="@id/ivLibraryLogo"
             android:singleLine="true"
-            android:textStyle="bold"
-            android:textSize="@dimen/s16sp" />
+            android:textSize="@dimen/s24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvLibraryPin"
@@ -78,30 +78,31 @@
             android:layout_toEndOf="@id/tvLibraryMCity"
             android:layout_toRightOf="@id/tvLibraryMCity"
             android:singleLine="true"
-            android:textSize="@dimen/s16sp" />
+            android:textSize="@dimen/s24sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/d1dp"
-        android:background="@android:color/black"
-        android:layout_marginTop="@dimen/d8dp" />
+        android:layout_marginTop="@dimen/d8dp"
+        android:background="@android:color/black" />
 
     <TextView
         android:id="@+id/tvLibraryAboutUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/s16sp"
+        android:layout_margin="@dimen/d16dp"
         android:scrollbars="vertical"
-        android:layout_margin="@dimen/d8dp" />
+        android:textSize="@dimen/s24sp" />
 
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:background="@color/colorPrimary"
         android:text="@string/enter"
         android:textAllCaps="false"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/s24sp" />
 </LinearLayout>

@@ -13,4 +13,5 @@
     <string name="updated_libraries">Updated libraries</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="smart_library">Smart Library</string>
+    <string name="cannot_be_empty">Cannot be empty!</string>
 </resources>

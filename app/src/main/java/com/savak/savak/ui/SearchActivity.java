@@ -3,7 +3,6 @@ package com.savak.savak.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.LinearGradient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +28,6 @@ import com.savak.savak.utils.URLConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,12 +36,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.Proxy;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements ActionTypes {
@@ -76,7 +65,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
 
     private void initui() {
         libraryResponseModels = new ArrayList<>();
-
         SpannableString spannableString = new SpannableString(getString(R.string.tag_line));
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -111,11 +99,14 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
             public void onClick(View view) {
 
                 if (SOAPUtils.isNetworkConnected(SearchActivity.this)) {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("SearchParam", etSearch.getText().toString());
-                    new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
-                            .execute(etSearch.getText().toString());
-
+                    if(!etSearch.getText().toString().isEmpty()) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("SearchParam", etSearch.getText().toString());
+                        new SearchTask(URLConstants.SEARCH_ACTION, map, SearchActivity.this)
+                                .execute(etSearch.getText().toString());
+                    }else{
+                        etSearch.setError(getString(R.string.cannot_be_empty));
+                    }
                 } else {
                     Toast.makeText(SearchActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
@@ -164,9 +155,8 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "text/xml");
+                urlConnection.setRequestProperty("Content-Type", "text/xml;charset=\"utf-8\"");
                 urlConnection.setRequestProperty("SOAPAction", ACTION);
-                Log.e(TAG, ACTION);
                 urlConnection.setRequestProperty("Content-length", SOAPUtils.getData(ACTION, map).length + "");
                 HttpURLConnection.setFollowRedirects(false);
                 urlConnection.setDoInput(true);
@@ -227,7 +217,6 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                         e.printStackTrace();
                     }
                 }
-
                 Intent intent = new Intent(SearchActivity.this, SeachResultActivity.class);
                 intent.putExtra("list", libraryResponseModels);
                 intent.putExtra("book_name", map.get("SearchParam").toString());

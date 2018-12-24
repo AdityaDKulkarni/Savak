@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.savak.savak.ui.SearchActivity"
+    android:id="@+id/relativeLayout">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="@dimen/d150dp"
+        android:layout_height="@dimen/d150dp"
+        android:layout_marginTop="@dimen/d150dp"
+        android:src="@drawable/mhlibraries"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTagLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/d8dp"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/d8dp"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+    <EditText
+        android:id="@+id/etSeachBook"
+        android:layout_width="1112dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d16dp"
+        android:hint="@string/book_name"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintRight_toLeftOf="@id/btnSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTagLine" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/d8dp"
+        android:layout_marginRight="@dimen/d8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/d4dp"
+        android:text="@string/search_books"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTagLine" />
+
+    <ImageView
+        android:id="@+id/imgViewTantravedLogo"
+        android:layout_width="@dimen/d150dp"
+        android:layout_height="@dimen/d150dp"
+        android:src="@drawable/tantraved_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvTantraved" />
+
+    <TextView
+        android:id="@+id/tvTantraved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tantraved"
+        android:gravity="center"
+        android:layout_margin="@dimen/d8dp"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

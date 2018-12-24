@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/d8dp"
+    android:id="@+id/relativeLayout4">
+
+    <ImageView
+        android:id="@+id/ivLibraryLogo"
+        android:layout_width="@dimen/d100dp"
+        android:layout_height="@dimen/d100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLibraryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d8dp"
+        android:layout_marginStart="@dimen/d8dp"
+        android:singleLine="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
+        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo" />
+
+    <TextView
+        android:id="@+id/tvLibraryAddress1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d8dp"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
+        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvLibraryName"
+        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
+        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
+
+    <TextView
+        android:id="@+id/tvLibraryAddress2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d8dp"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
+        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress1"
+        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
+        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
+
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/enter"
+        android:textAllCaps="false"
+        android:padding="@dimen/d8dp"
+        android:textSize="@dimen/s24sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLibraryMCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d8dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
+        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress2"
+        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
+        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
+
+    <TextView
+        android:id="@+id/tvLibraryPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp"
+        app:layout_constraintTop_toTopOf="@id/tvLibraryMCity"
+        app:layout_constraintLeft_toRightOf="@id/tvLibraryMCity"
+        app:layout_constraintBottom_toBottomOf="@id/tvLibraryMCity"
+        app:layout_constraintStart_toEndOf="@id/tvLibraryMCity" />
+
+</android.support.constraint.ConstraintLayout>
