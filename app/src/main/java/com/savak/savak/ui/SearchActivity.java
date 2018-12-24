@@ -3,6 +3,8 @@ package com.savak.savak.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.LinearGradient;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class SearchActivity extends AppCompatActivity implements ActionTypes {
+public class SearchActivity extends BaseActivity implements ActionTypes {
 
     private String TAG = getClass().getSimpleName();
     ArrayList<SmartLibraryResponseModel> libraryResponseModels;
@@ -57,6 +59,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
         TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setText(getString(R.string.smart_library));
 
         initui();
@@ -155,7 +158,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "text/xml;charset=\"utf-8\"");
+                urlConnection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
                 urlConnection.setRequestProperty("SOAPAction", ACTION);
                 urlConnection.setRequestProperty("Content-length", SOAPUtils.getData(ACTION, map).length + "");
                 HttpURLConnection.setFollowRedirects(false);

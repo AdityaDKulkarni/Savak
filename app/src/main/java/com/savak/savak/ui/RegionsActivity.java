@@ -42,7 +42,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RegionsActivity extends AppCompatActivity implements ActionTypes {
+public class RegionsActivity extends BaseActivity implements ActionTypes {
 
     private RecyclerView rvRegions;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;

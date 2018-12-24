@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Savak</string>
+    <string name="getting_Smart_libraries">Getting smart libraries…</string>
+    <string name="book_name">पुस्तकाचे नाव</string>
+    <string name="getting_books">Getting books…</string>
+    <string name="search_books">ग्रंथशोध</string>
+    <string name="tag_line">महाराष्ट्रातील नामवंत वाचनालये आणि पुस्तकांचा खजिना</string>
+    <string name="tantraved">तंत्रवेद जळगांव. २०१८</string>
+    <string name="regions">विभाग</string>
+    <string name="please_wait">Please wait</string>
+    <string name="all_libraries">संपूर्ण वाचनालये</string>
+    <string name="enter">प्रवेश</string>
+    <string name="updated_libraries">अद्ययावत वाचनालये</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="smart_library">|| स्मार्ट लायब्ररी ||</string>
+</resources>
