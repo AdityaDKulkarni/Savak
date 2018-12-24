@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.LinearGradient;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -30,12 +31,6 @@ import com.savak.savak.utils.URLConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchActivity extends AppCompatActivity implements ActionTypes {
+public class SearchActivity extends BaseActivity implements ActionTypes {
 
     private String TAG = getClass().getSimpleName();
     ArrayList<SmartLibraryResponseModel> libraryResponseModels;
@@ -68,6 +63,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
         TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+        title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setText(getString(R.string.smart_library));
 
         initui();
@@ -164,7 +160,7 @@ public class SearchActivity extends AppCompatActivity implements ActionTypes {
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "text/xml");
+                urlConnection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
                 urlConnection.setRequestProperty("SOAPAction", ACTION);
                 Log.e(TAG, ACTION);
                 urlConnection.setRequestProperty("Content-length", SOAPUtils.getData(ACTION, map).length + "");

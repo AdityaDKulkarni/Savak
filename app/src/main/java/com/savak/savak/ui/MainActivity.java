@@ -35,7 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements ActionTypes{
+public class MainActivity extends BaseActivity implements ActionTypes{
 
     ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private RecyclerView recyclerView;

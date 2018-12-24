@@ -36,7 +36,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RegionSpecificLibrariesActivity extends AppCompatActivity implements ActionTypes {
+public class RegionSpecificLibrariesActivity extends BaseActivity implements ActionTypes {
+
 
 
     private RecyclerView rvRegionLibraries;

@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.savak.savak.R;
@@ -15,20 +18,16 @@ import com.savak.savak.models.SmartLibraryResponseModel;
 
 import java.util.ArrayList;
 
-public class SeachResultActivity extends AppCompatActivity {
-
+public class SeachResultActivity extends BaseActivity {
 
     private RecyclerView rvBookSearch;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_seach_result);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
-        title.setText(getString(R.string.search_books));
+        initToolbar();
 
         rvBookSearch = findViewById(R.id.rvBookSearch);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvBookSearch.getContext(),
@@ -43,14 +42,9 @@ public class SeachResultActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-
-        return false;
+    private void initToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toobar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
     }
 }
