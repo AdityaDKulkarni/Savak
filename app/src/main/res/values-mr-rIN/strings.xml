@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Savak</string>
-    <string name="getting_Smart_libraries">Getting smart libraries…</string>
+    <string name="app_name">स्मार्ट लायब्ररी</string>
+    <string name="getting_Smart_libraries">स्मार्ट लायब्ररी मिळविणे…</string>
     <string name="book_name">पुस्तकाचे नाव</string>
-    <string name="getting_books">Getting books…</string>
+    <string name="getting_books">पुस्तके मिळवणे…</string>
     <string name="search_books">ग्रंथशोध</string>
-    <string name="tag_line">महाराष्ट्रातील नामवंत वाचनालये आणि पुस्तकांचा खजिना</string>
-    <string name="tantraved">तंत्रवेद जळगांव. २०१८</string>
+    <string name="tag_line">महाराष्ट्रातील नामवंत <a href="http://tantraved.in/Android/Regions.aspx">वाचनालये</a> आणि पुस्तकांचा खजिना</string>
+    <string name="tantraved"><a href="http://www.tantraved.in/">तंत्रवेद</a> जळगांव. २०१८</string>
     <string name="regions">विभाग</string>
     <string name="please_wait">Please wait</string>
     <string name="all_libraries">संपूर्ण वाचनालये</string>
@@ -13,4 +13,43 @@
     <string name="updated_libraries">अद्ययावत वाचनालये</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="smart_library">|| स्मार्ट लायब्ररी ||</string>
+    <string name="cannot_be_empty">रिक्त असू शकत नाही!</string>
+    <string name="something_went_wrong">अंतर्गत सर्व्हर त्रुटी!</string>
+    <string name="nothing_to_show">"दर्शविण्यासाठी काहीच नाही "</string>
+    <string name="about_us">माहिती</string>
+    <string name="contact">संपर्क क्र. %1$s</string>
+    <string name="history">इतिहास</string>
+    <string name="management">व्यवस्थापन</string>
+    <string name="venture">उपक्रम</string>
+    <string name="opinion_of_dignitaries">मान्यवरांचे अभिप्राय</string>
+    <string name="new_books">नवीन पुस्तके</string>
+    <string name="rare_books">दुर्मिळ पुस्तके</string>
+    <string name="numerology">संख्या शास्त्र</string>
+    <string name="my_membership">माझे सभासदत्व</string>
+    <string name="trusted_board">विश्वस्त मंडळ</string>
+    <string name="total">एकूण</string>
+    <string name="books">पुस्तके</string>
+    <string name="social_projects">सामाजिक उपक्रम</string>
+    <string name="granthsampada">ग्रंथसंपदा</string>
+    <string name="daily_book_transactions">दैनंदिन पुस्तक व्यवहार</string>
+    <string name="type_wise_reading">"वाचकप्रिय पुस्तक प्रकार "</string>
+    <string name="popular_10_books">"१० वाचकप्रिय पुस्तके "</string>
+    <string name="top_10_readers">"१० उत्कृष्ट वाचक "</string>
+    <string name="membership_schemes">"सभासदत्व योजना "</string>
+    <string name="member">"सभासद "</string>
+    <string name="my_books">"मी वाचलेली पुस्तके "</string>
+    <string name="donation_reciepts">"वर्गणी पावत्या "</string>
+    <string name="suggestions">"सूचना / संदेश "</string>
+    <string name="magazines">नियतकालिके</string>
+    <string name="duration">पुस्तक परतीचा कालावधी</string>
+    <string name="members_has_read">सभासदांनी वाचले आहे</string>
+    <string name="current_year_book_purchase">चालू वर्षातील ग्रंथ खरेदी</string>
+    <string name="days">दिवस</string>
+    <string name="book_type">"पुस्तक प्रकार "</string>
+    <string name="total_books">एकूण पुस्तके\t</string>
+    <string name="price">किंमत</string>
+    <string name="srno">क्र.</string>
+    <string name="books_read">वाचलेली पुस्तके</string>
+    <string name="member_schemes">सभासद योजना</string>
+    <string name="total_members">एकूण सभासद</string>
 </resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/d8dp">
+
+    <ImageView
+        android:id="@+id/ivLibraryLogo"
+        android:layout_width="@dimen/d100dp"
+        android:layout_height="@dimen/d100dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tvLibraryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/d8dp"
+        android:layout_marginStart="@dimen/d8dp"
+        android:textColor="@color/colorAccent"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp" />
+
+    <TextView
+        android:id="@+id/tvLibraryAddress1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryName"
+        android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp" />
+
+    <TextView
+        android:id="@+id/tvLibraryAddress2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryAddress1"
+        android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp" />
+
+    <TextView
+        android:id="@+id/tvLibraryMCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tvLibraryAddress2"
+        android:layout_toRightOf="@id/tvLibraryAddress2"
+        android:layout_marginStart="@dimen/d8dp"
+        android:layout_alignTop="@id/tvLibraryAddress2"
+        android:layout_alignBottom="@id/tvLibraryAddress2"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/s24sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/d8dp" />
+
+    <TextView
+        android:id="@+id/tvLibraryPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryMCity"
+        android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
+        android:singleLine="true"
+        android:textSize="@dimen/s24sp" />
+
+</RelativeLayout>

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/d8dp"
-    android:id="@+id/relativeLayout4">
+    android:layout_margin="@dimen/d8dp">
 
     <ImageView
         android:id="@+id/ivLibraryLogo"
         android:layout_width="@dimen/d100dp"
         android:layout_height="@dimen/d100dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/tvLibraryName"
@@ -20,76 +16,65 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/d8dp"
         android:layout_marginStart="@dimen/d8dp"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/s24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
-        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/s24sp" />
 
     <TextView
         android:id="@+id/tvLibraryAddress1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryName"
         android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
-        android:textSize="@dimen/s24sp"
-        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
-        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
-        app:layout_constraintTop_toBottomOf="@id/tvLibraryName"
-        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
-        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
+        android:textSize="@dimen/s24sp" />
 
     <TextView
         android:id="@+id/tvLibraryAddress2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryAddress1"
         android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
-        android:textSize="@dimen/s24sp"
-        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
-        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
-        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress1"
-        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
-        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
-
-    <Button
-        android:id="@+id/btnEnter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/enter"
-        android:textAllCaps="false"
-        android:padding="@dimen/d8dp"
-        android:textSize="@dimen/s24sp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:textSize="@dimen/s24sp" />
 
     <TextView
         android:id="@+id/tvLibraryMCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLibraryName"
+        android:layout_alignStart="@id/tvLibraryName"
+        android:layout_below="@id/tvLibraryAddress2"
         android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/ivLibraryLogo"
+        android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
         android:textStyle="bold"
-        android:textSize="@dimen/s24sp"
-        app:layout_constraintStart_toStartOf="@id/tvLibraryName"
-        app:layout_constraintLeft_toRightOf="@id/ivLibraryLogo"
-        app:layout_constraintTop_toBottomOf="@id/tvLibraryAddress2"
-        app:layout_constraintStart_toEndOf="@id/ivLibraryLogo"
-        app:layout_constraintLeft_toLeftOf="@id/tvLibraryName" />
+        android:textSize="@dimen/s24sp" />
 
     <TextView
         android:id="@+id/tvLibraryPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_alignBottom="@id/tvLibraryMCity"
+        android:layout_alignTop="@id/tvLibraryMCity"
+        android:layout_toEndOf="@id/tvLibraryMCity"
+        android:layout_toRightOf="@id/tvLibraryMCity"
         android:singleLine="true"
-        android:textSize="@dimen/s24sp"
-        app:layout_constraintTop_toTopOf="@id/tvLibraryMCity"
-        app:layout_constraintLeft_toRightOf="@id/tvLibraryMCity"
-        app:layout_constraintBottom_toBottomOf="@id/tvLibraryMCity"
-        app:layout_constraintStart_toEndOf="@id/tvLibraryMCity" />
+        android:textSize="@dimen/s24sp" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

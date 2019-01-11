@@ -19,7 +19,7 @@
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/s16sp" />
 
     <TextView
@@ -30,6 +30,7 @@
         android:layout_alignStart="@id/tvLibraryName"
         android:layout_below="@id/tvLibraryName"
         android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
@@ -43,41 +44,32 @@
         android:layout_alignStart="@id/tvLibraryName"
         android:layout_below="@id/tvLibraryAddress1"
         android:layout_marginTop="@dimen/d8dp"
+        android:textColor="@color/black"
         android:layout_toEndOf="@id/ivLibraryLogo"
         android:layout_toRightOf="@id/ivLibraryLogo"
         android:singleLine="true"
         android:textSize="@dimen/s16sp" />
-
-    <Button
-        android:id="@+id/btnEnter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvLibraryAddress1"
-        android:background="@color/colorPrimary"
-        android:text="@string/enter"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/tvLibraryMCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/tvLibraryName"
-        android:layout_alignStart="@id/tvLibraryName"
-        android:layout_below="@id/tvLibraryAddress2"
-        android:layout_marginTop="@dimen/d8dp"
-        android:layout_toEndOf="@id/ivLibraryLogo"
-        android:layout_toRightOf="@id/ivLibraryLogo"
+        android:layout_toEndOf="@id/tvLibraryAddress2"
+        android:layout_toRightOf="@id/tvLibraryAddress2"
+        android:layout_marginStart="@dimen/d8dp"
+        android:textColor="@color/black"
+        android:layout_alignTop="@id/tvLibraryAddress2"
+        android:layout_alignBottom="@id/tvLibraryAddress2"
         android:singleLine="true"
+        android:textSize="@dimen/s16sp"
         android:textStyle="bold"
-        android:textSize="@dimen/s16sp" />
+        android:layout_marginLeft="@dimen/d8dp" />
 
     <TextView
         android:id="@+id/tvLibraryPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:layout_alignBottom="@id/tvLibraryMCity"
         android:layout_alignTop="@id/tvLibraryMCity"
         android:layout_toEndOf="@id/tvLibraryMCity"

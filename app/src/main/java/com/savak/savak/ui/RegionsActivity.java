@@ -1,93 +1,64 @@
 package com.savak.savak.ui;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.savak.savak.R;
 import com.savak.savak.adapters.RecyclerAdapter;
 import com.savak.savak.listeners.RecyclerViewItemListener;
 import com.savak.savak.models.SmartLibraryResponseModel;
-import com.savak.savak.utils.ActionTypes;
 import com.savak.savak.utils.SOAPUtils;
 import com.savak.savak.utils.URLConstants;
+import com.savak.savak.worker.LibraryTasks;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RegionsActivity extends BaseActivity implements ActionTypes {
+public class RegionsActivity extends BaseActivity {
 
     private RecyclerView rvRegions;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
-    private Button btnAllLibraries;
+    private EditText etRegionSearchBook;
+    private Button btnAllLibraries, btnRegionSearchBook;
+    private Toolbar toolbar;
+    HashMap<String, Object> map = new HashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regions);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
-        TextView title = findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
-        title.setText(getString(R.string.regions));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        initToolbar();
         initui();
     }
 
-    private void initui(){
-        libraryResponseModels = new ArrayList<>();
+    private void initui() {
+        String book_name = null;
+        if (getIntent().hasExtra("list") && getIntent().hasExtra("book_name")) {
+            libraryResponseModels = (ArrayList<SmartLibraryResponseModel>) getIntent().getExtras().get("list");
+            book_name = getIntent().getStringExtra("book_name");
+        }
+        etRegionSearchBook = findViewById(R.id.etRegionSearchBook);
         btnAllLibraries = findViewById(R.id.btnAllLibraries);
+        btnRegionSearchBook = findViewById(R.id.btnRegionSearchBook);
         rvRegions = findViewById(R.id.rvRegions);
+        rvRegions.setAdapter(new RecyclerAdapter(libraryResponseModels, this, book_name));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rvRegions.setLayoutManager(gridLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvRegions.getContext(),
-                new LinearLayoutManager(this).getOrientation());
-        rvRegions.addItemDecoration(dividerItemDecoration);
-
-        if (SOAPUtils.isNetworkConnected(this)) {
-            new RegionsAction(URLConstants.REGION_ACTION, new HashMap<String, Object>(), this).execute();
-        } else {
-            Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
-        }
-
 
         rvRegions.addOnItemTouchListener(new RecyclerViewItemListener(this, rvRegions, new RecyclerViewItemListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                HashMap<String, Integer> map = new HashMap();
-                map.put("RegionId", libraryResponseModels.get(position).getSrNo());
                 if (SOAPUtils.isNetworkConnected(RegionsActivity.this)) {
-                    Intent intent = new Intent(RegionsActivity.this, RegionSpecificLibrariesActivity.class);
-                    intent.putExtra("map", map);
-                    startActivity(intent);
+                    map = new HashMap();
+                    map.put("RegionId", libraryResponseModels.get(position).getSrNo());
+                    new LibraryTasks(URLConstants.LIBRARY_ACTION, map, RegionsActivity.this).execute();
                 } else {
                     Toast.makeText(RegionsActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
@@ -102,12 +73,28 @@ public class RegionsActivity extends BaseActivity implements ActionTypes {
         btnAllLibraries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HashMap<String, Integer> map = new HashMap();
-                map.put("RegionId", 0);
                 if (SOAPUtils.isNetworkConnected(RegionsActivity.this)) {
-                    Intent intent = new Intent(RegionsActivity.this, RegionSpecificLibrariesActivity.class);
-                    intent.putExtra("map", map);
-                    startActivity(intent);
+                    map = new HashMap<>();
+                    map.put("RegionId", 0);
+                    new LibraryTasks(URLConstants.LIBRARY_ACTION, map, RegionsActivity.this).execute();
+                } else {
+                    Toast.makeText(RegionsActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btnRegionSearchBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (SOAPUtils.isNetworkConnected(RegionsActivity.this)) {
+                    if (!etRegionSearchBook.getText().toString().isEmpty()) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("SearchParam", etRegionSearchBook.getText().toString());
+                        new LibraryTasks(URLConstants.SEARCH_ACTION, map, RegionsActivity.this)
+                                .execute();
+                    } else {
+                        etRegionSearchBook.setError(getString(R.string.cannot_be_empty));
+                    }
                 } else {
                     Toast.makeText(RegionsActivity.this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
                 }
@@ -115,115 +102,11 @@ public class RegionsActivity extends BaseActivity implements ActionTypes {
         });
     }
 
-    @Override
-    public int getType() {
-        return ActionTypes.TYPE_REGIONS;
-    }
-
-    class RegionsAction extends AsyncTask<Void, Void, JSONArray> {
-
-        private String ACTION;
-        private HashMap<String, Object> map;
-        private ProgressDialog progressDialog;
-        private Context context;
-        private String TAG = getClass().getSimpleName();
-        private JSONArray resultJSONArray;
-
-        public RegionsAction(String ACTION, HashMap<String, Object> map, Context context) {
-            this.ACTION = ACTION;
-            this.map = map;
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage(context.getString(R.string.please_wait));
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected JSONArray doInBackground(Void... voids) {
-            HttpURLConnection urlConnection;
-            OutputStream outputStream;
-            InputStream inputStream;
-            int code = -1;
-
-            try {
-                URL url = new URL(URLConstants.BASE_URL);
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "text/xml");
-                urlConnection.setRequestProperty("SOAPAction", ACTION);
-                Log.e(TAG, ACTION);
-                urlConnection.setRequestProperty("Content-length", SOAPUtils.getData(ACTION, map).length + "");
-                HttpURLConnection.setFollowRedirects(false);
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setUseCaches(true);
-                urlConnection.setConnectTimeout(60000);
-                urlConnection.setReadTimeout(60000);
-                urlConnection.connect();
-                outputStream = urlConnection.getOutputStream();
-                if (outputStream != null) {
-                    outputStream.write(SOAPUtils.getData(ACTION, map));
-                    outputStream.flush();
-                }
-                code = urlConnection.getResponseCode();
-                Log.e(TAG + " response code", String.valueOf(code));
-
-                inputStream = urlConnection.getInputStream();
-                StringBuilder builder = new StringBuilder();
-                String line = null;
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line + "\n");
-                }
-                String response = builder.toString();
-                Log.e(TAG, response);
-                resultJSONArray = new JSONArray(response);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return resultJSONArray;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-            try {
-                libraryResponseModels.clear();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    SmartLibraryResponseModel model = new SmartLibraryResponseModel();
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    Log.e("set srno", object.getInt("SrNo") + "");
-                    model.setSrNo(object.getInt("SrNo"));
-                    model.setRegionName(object.getString("RegionName"));
-                    model.setDescription(object.getString("Description"));
-                    model.setCreatedBy(object.getString("CreatedBy"));
-                    model.setCreatedDate(object.getString("CreatedDate"));
-                    model.setLastModifiedBy(object.getString("LastModifiedBy"));
-                    model.setLastModifiedDate(object.getString("LastModifiedDate"));
-                    model.setType(getType());
-                    libraryResponseModels.add(model);
-                }
-
-                rvRegions.setAdapter(new RecyclerAdapter(libraryResponseModels, RegionsActivity.this, ""));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toobar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        toolbar.setNavigationIcon(R.drawable.ic_back);
     }
 
     @Override

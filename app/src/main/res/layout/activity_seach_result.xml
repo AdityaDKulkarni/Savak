@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.savak.savak.ui.SeachResultActivity">
+    android:focusableInTouchMode="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toobar"
@@ -18,17 +17,51 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textStyle="bold"
+            
             android:textColor="@color/white"
             android:textSize="@dimen/s16sp"
             android:text="@string/search_books"/>
     </android.support.v7.widget.Toolbar>
 
+    <EditText
+        android:id="@+id/etRegionSearchBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/book_name"
+        android:layout_below="@id/toobar"
+        android:layout_marginStart="@dimen/d4dp"
+        android:textSize="@dimen/s16sp"
+        android:backgroundTint="@color/pink"
+        android:layout_alignBottom="@id/btnRegionSearchBook"
+        android:layout_toStartOf="@id/btnRegionSearchBook"
+        android:layout_toLeftOf="@id/btnRegionSearchBook"
+        android:layout_marginEnd="@dimen/d8dp"
+        android:layout_marginRight="@dimen/d8dp"
+        android:layout_marginLeft="@dimen/d4dp" />
+
+    <Button
+        android:id="@+id/btnRegionSearchBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary"
+        android:text="@string/search_books"
+        android:textAllCaps="false"
+        android:padding="@dimen/d8dp"
+        android:textSize="@dimen/s16sp"
+
+        android:layout_below="@id/toobar"
+        android:textColor="@color/white"
+        android:layout_marginEnd="@dimen/d4dp"
+        android:layout_marginTop="@dimen/d8dp"
+        android:layout_marginRight="@dimen/d4dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvBookSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toobar"
+        android:layout_below="@id/etRegionSearchBook"
         android:layout_margin="@dimen/d8dp"/>
 
 </RelativeLayout>

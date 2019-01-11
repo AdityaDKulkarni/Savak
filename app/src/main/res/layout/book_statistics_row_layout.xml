@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/d75dp"
+    android:layout_marginTop="@dimen/d4dp"
+    android:layout_marginBottom="@dimen/d4dp"
+    android:layout_marginStart="@dimen/d4dp"
+    android:layout_marginEnd="@dimen/d4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_border_gray">
+
+        <TextView
+            android:id="@+id/tvBookType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/d8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s16sp" />
+
+        <TextView
+            android:id="@+id/tvBookCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvBookType"
+            android:layout_marginTop="@dimen/d8dp"
+            android:textStyle="bold"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/s16sp" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

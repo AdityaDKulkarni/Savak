@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:orientation="horizontal"
+        android:padding="3dip"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dip">
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/d8dp"
+            android:textSize="@dimen/s24sp"
+            android:layout_marginLeft="@dimen/d8dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/s24sp"
+        android:layout_toEndOf="@+id/thumbnail" />
+
+    <TextView
+        android:id="@+id/tv5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/tv4"
+        android:gravity="start"
+        android:layout_marginEnd="@dimen/d8dp"
+        android:layout_marginTop="@dimen/d1dp"
+        android:textSize="@dimen/s24sp"
+        android:textColor="@color/black"
+        android:layout_alignTop="@id/thumbnail"
+        android:layout_toLeftOf="@id/tv4"
+        android:layout_marginRight="@dimen/d8dp" />
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/d8dp"
+        android:textSize="@dimen/s24sp"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_marginRight="@dimen/d8dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

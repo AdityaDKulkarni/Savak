@@ -9,7 +9,7 @@ import com.savak.savak.app.App;
 
 
 /**
- * @Author Dhananjay Kulkarni.
+ * @author Dhananjay Kulkarni.
  */
 
 public class BaseActivity extends AppCompatActivity {

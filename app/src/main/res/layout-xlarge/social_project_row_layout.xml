@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivProjectPhoto"
+        android:layout_width="@dimen/d100dp"
+        android:layout_height="@dimen/d100dp"
+        android:layout_margin="@dimen/d8dp"/>
+
+    <TextView
+        android:id="@+id/tvProjectTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s24sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_toEndOf="@id/ivProjectPhoto"
+        android:layout_toRightOf="@id/ivProjectPhoto"
+        android:layout_alignTop="@id/ivProjectPhoto"/>
+    
+    <TextView
+        android:id="@+id/tvProjectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s24sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/tvProjectTitle"
+        android:layout_toEndOf="@id/ivProjectPhoto"
+        android:layout_toRightOf="@id/ivProjectPhoto" />
+
+    <TextView
+        android:id="@+id/tvProjectDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/s24sp"
+        android:textColor="@color/black"
+        android:justificationMode="inter_word"
+        android:layout_margin="@dimen/d8dp"
+        android:layout_below="@id/ivProjectPhoto"/>
+
+</RelativeLayout>

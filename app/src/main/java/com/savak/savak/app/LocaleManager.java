@@ -14,12 +14,12 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static android.os.Build.VERSION_CODES.N;
 
 /**
- * @Author Dhananjay Kulkarni.
+ * @author Dhananjay Kulkarni.
  */
 
 public class LocaleManager {
 
-    public static final  String LANGUAGE_MARATHI= "mr";
+    public static final String LANGUAGE_MARATHI = "mr";
     private static final String LANGUAGE_KEY = "language_key";
 
     private final SharedPreferences prefs;
@@ -43,8 +43,6 @@ public class LocaleManager {
 
     @SuppressLint("ApplySharedPref")
     private void persistLanguage(String language) {
-        // use commit() instead of apply(), because sometimes we kill the application process immediately
-        // which will prevent apply() to finish
         prefs.edit().putString(LANGUAGE_KEY, language).commit();
     }
 

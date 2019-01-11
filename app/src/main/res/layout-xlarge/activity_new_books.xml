@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s24sp" />
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toobar"
+        android:layout_marginLeft="@dimen/d8dp"
+        android:layout_marginStart="@dimen/d8dp">
+
+        <ImageView
+            android:id="@+id/ivLibraryLogo"
+            android:layout_width="@dimen/d75dp"
+            android:layout_height="@dimen/d75dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/d8dp"
+            android:layout_marginRight="@dimen/d8dp" />
+
+        <TextView
+            android:id="@+id/tvLibraryAddress1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLibraryName"
+            android:layout_marginTop="@dimen/d8dp"
+            android:layout_toEndOf="@id/ivLibraryLogo"
+            android:layout_toRightOf="@id/ivLibraryLogo"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s24sp" />
+
+        <TextView
+            android:id="@+id/tvLibraryAddress2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLibraryAddress1"
+            android:layout_marginTop="@dimen/d8dp"
+            android:layout_toEndOf="@id/ivLibraryLogo"
+            android:layout_toRightOf="@id/ivLibraryLogo"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s24sp" />
+
+        <TextView
+            android:id="@+id/tvLibraryFinancialYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginTop="@dimen/d8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/d8dp"
+            android:singleLine="true"
+            android:textSize="@dimen/s24sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/d8dp" />
+
+
+        <TextView
+            android:id="@+id/tvLibraryMCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tvLibraryAddress2"
+            android:layout_alignTop="@id/tvLibraryAddress2"
+            android:layout_marginLeft="@dimen/d8dp"
+            android:layout_marginStart="@dimen/d8dp"
+            android:layout_toEndOf="@id/tvLibraryAddress2"
+            android:layout_toRightOf="@id/tvLibraryAddress2"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLibraryPin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tvLibraryMCity"
+            android:layout_alignTop="@id/tvLibraryMCity"
+            android:layout_toEndOf="@id/tvLibraryMCity"
+            android:layout_toRightOf="@id/tvLibraryMCity"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s24sp" />
+
+        <TextView
+            android:id="@+id/tvLibraryContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tvLibraryAddress2"
+            android:layout_alignStart="@id/tvLibraryAddress2"
+            android:layout_below="@id/tvLibraryAddress2"
+            android:layout_marginTop="@dimen/d8dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s24sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d1dp"
+        android:layout_below="@id/relativeLayout"
+        android:layout_marginBottom="@dimen/d8dp"
+        android:layout_marginTop="@dimen/d8dp"
+        android:background="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view"
+        android:layout_margin="@dimen/d8dp"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/etSeachBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/d8dp"
+            android:layout_toLeftOf="@id/btnSearch"
+            android:layout_toStartOf="@id/btnSearch"
+            android:backgroundTint="@color/pink"
+            android:hint="@string/book_name"
+            android:singleLine="true"
+            android:textSize="@dimen/s24sp" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/d8dp"
+            android:layout_marginRight="@dimen/d8dp"
+            android:textSize="@dimen/s24sp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/d4dp"
+            android:text="@string/search_books"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNewBooks"
+        android:layout_below="@id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/d8dp" />
+</RelativeLayout>
