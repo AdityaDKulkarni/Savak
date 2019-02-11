@@ -11,17 +11,15 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:ellipsize="end"
-                android:gravity="center"
+                android:gravity="start"
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/s16sp" />
@@ -30,11 +28,11 @@
                 android:id="@+id/tv_title_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_below="@id/tv_title"
+                android:gravity="start"
                 android:textColor="@color/white"
                 android:textSize="@dimen/s16sp" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
@@ -87,7 +85,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/d8dp"
             android:layout_marginRight="@dimen/d8dp"
-            android:layout_marginTop="@dimen/d8dp"
+            android:layout_alignTop="@id/tvLibraryContact"
             android:singleLine="true"
             android:textColor="@color/red"
             android:textSize="@dimen/s16sp" />

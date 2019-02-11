@@ -14,6 +14,7 @@ public class BookModel implements Serializable {
     private int BookCount;
     private double totalAmount;
     private String Author, BookType, PublisherName, BookTitle, BookImage, BookInwardNo, BookNo, UserName, Member, MemberImage;
+    private String website;
 
     public int getMemberId() {
         return MemberId;
@@ -133,5 +134,13 @@ public class BookModel implements Serializable {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

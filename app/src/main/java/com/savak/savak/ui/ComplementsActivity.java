@@ -29,9 +29,8 @@ public class ComplementsActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
-    private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private ImageView ivLibraryLogo;
-    private TextView title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView title, tvtitle2, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
     private RecyclerView rvComplements;
@@ -54,6 +53,7 @@ public class ComplementsActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -73,7 +73,8 @@ public class ComplementsActivity extends BaseActivity {
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.opinion_of_dignitaries));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(getString(R.string.opinion_of_dignitaries));
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             try {
@@ -109,7 +110,9 @@ public class ComplementsActivity extends BaseActivity {
 
                 if (getIntent().hasExtra("complements")) {
                     ArrayList<ComplementModel> complementModels = (ArrayList<ComplementModel>) getIntent().getExtras().get("complements");
-                    rvComplements.setAdapter(new RecyclerAdapter(ComplementsActivity.this, complementModels, "http://savak.in/CP/Uploads/Complements/"));
+                    rvComplements.setAdapter(new RecyclerAdapter(ComplementsActivity.this,
+                            complementModels,
+                            "http://"+ libraryResponseModel.getWebsite() +"/CP/Uploads/Complements/"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

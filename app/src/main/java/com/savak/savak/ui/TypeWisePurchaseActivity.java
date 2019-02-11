@@ -36,7 +36,7 @@ public class TypeWisePurchaseActivity extends BaseActivity {
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
     private ImageView ivLibraryLogo;
-    private TextView tvSrNo, tvBookType, tvBookCount, tvTotalAmount, title, tvtitle2, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, tvSrNo, tvBookType, tvBookCount, tvTotalAmount, title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
 
@@ -141,6 +141,7 @@ public class TypeWisePurchaseActivity extends BaseActivity {
                         tvBookCount.setPadding(0,0,16,0);
                         tvBookCount.setGravity(Gravity.END);
                         tvTotalAmount = new TableRowTextViewUtil().config(this, R.color.black, String.format(Locale.US, "%.2f", bookModels.get(i).getTotalAmount()));
+                        tvTotalAmount.setPadding(0,0,16, 0);
                         tvTotalAmount.setGravity(Gravity.END);
 
                         row.addView(tvSrNo);

@@ -29,11 +29,10 @@ public class ReadersChoiceActivity extends BaseActivity {
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
     private ImageView ivLibraryLogo;
-    private TextView title, tvtitle2,tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
     private RecyclerView rvReadersChoice;
-    private ArrayList<BookModel> bookModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -43,7 +43,7 @@ public class BookResultActivity extends BaseActivity {
     private SmartLibraryResponseModel libraryResponseModel;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private ImageView ivLibraryLogo;
-    private TextView title, tvLibraryFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView title, tvtitle2, tvLibraryFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
     private RecyclerView rvNewBooks;
@@ -65,6 +65,7 @@ public class BookResultActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -82,6 +83,10 @@ public class BookResultActivity extends BaseActivity {
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
             title.setText(libraryResponseModel.getLibraryName());
+            if(getIntent().hasExtra("book_name")){
+                String book_name = (String) getIntent().getExtras().get("book_name");
+                tvtitle2.setText(getString(R.string.search_books) + " - " + book_name);
+            }
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int regionId = libraryResponseModel.getRegionId();
@@ -118,7 +123,7 @@ public class BookResultActivity extends BaseActivity {
 
                 if (getIntent().hasExtra("books")) {
                     ArrayList<BookModel> bookModels = (ArrayList<BookModel>) getIntent().getExtras().get("books");
-                    rvNewBooks.setAdapter(new RecyclerAdapter(BookResultActivity.this, "http://savak.in/CP/Uploads/BookImages/", bookModels));
+                    rvNewBooks.setAdapter(new RecyclerAdapter(BookResultActivity.this, "http://" + libraryResponseModel.getWebsite() + "/CP/Uploads/BookImages/", bookModels));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

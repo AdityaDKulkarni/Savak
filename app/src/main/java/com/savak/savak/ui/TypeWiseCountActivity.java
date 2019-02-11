@@ -34,7 +34,7 @@ public class TypeWiseCountActivity extends BaseActivity {
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
     private ImageView ivLibraryLogo;
-    private TextView tvSrNo, tvBookType, tvBookCount, title, tvtitle2,tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, tvSrNo, tvBookType, tvBookCount, title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
 

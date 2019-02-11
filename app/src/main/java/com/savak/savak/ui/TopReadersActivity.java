@@ -5,11 +5,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.savak.savak.adapters.RecyclerAdapter;
 import com.savak.savak.models.BookModel;
 import com.savak.savak.models.SmartLibraryResponseModel;
 import com.savak.savak.utils.SOAPUtils;
+import com.savak.savak.utils.TableRowTextViewUtil;
 import com.savak.savak.utils.URLConstants;
 import com.savak.savak.worker.LibraryTasks;
 
@@ -30,10 +34,9 @@ public class TopReadersActivity extends BaseActivity {
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
     private ImageView ivLibraryLogo;
-    private TextView title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, tvSrNo, tvMember, tvBooksRead, title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
-    private RecyclerView rvNewBooks;
 
 
     @Override
@@ -53,6 +56,7 @@ public class TopReadersActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -62,15 +66,11 @@ public class TopReadersActivity extends BaseActivity {
         tvLibraryPin = findViewById(R.id.tvLibraryPin);
         tvLibraryContact = findViewById(R.id.tvLibraryContact);
         tvFinancialYear = findViewById(R.id.tvLibraryFinancialYear);
-        rvNewBooks = findViewById(R.id.rvTopReaders);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvNewBooks.getContext(),
-                new LinearLayoutManager(this).getOrientation());
-        rvNewBooks.addItemDecoration(dividerItemDecoration);
-        rvNewBooks.setLayoutManager(new LinearLayoutManager(this));
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.top_10_readers));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(getString(R.string.top_10_readers));
             final int libraryId = libraryResponseModel.getLibraryId();
             final int yearId = libraryResponseModel.getFinancialYearId();
             final String databaseName = libraryResponseModel.getDatabaseName();
@@ -87,7 +87,24 @@ public class TopReadersActivity extends BaseActivity {
 
                 if (getIntent().hasExtra("readers")) {
                     ArrayList<BookModel> bookModels = (ArrayList<BookModel>) getIntent().getExtras().get("readers");
-                    rvNewBooks.setAdapter(new RecyclerAdapter(this, "", bookModels));
+                    for (int i = 0; i < bookModels.size(); i++) {
+                        TableLayout table = findViewById(R.id.table);
+                        TableRow row = new TableRow(this);
+
+                        tvMember = new TableRowTextViewUtil().config(this, R.color.colorPrimary, bookModels.get(i).getMember());
+                        tvSrNo = new TableRowTextViewUtil().config(this, R.color.black, String.valueOf(i + 1));
+                        tvSrNo.setGravity(Gravity.END);
+                        tvMember.setGravity(Gravity.START);
+                        tvMember.setPadding(16, 8, 8, 8);
+                        tvBooksRead = new TableRowTextViewUtil().config(this, R.color.black, String.valueOf(bookModels.get(i).getBookCount()));
+                        tvBooksRead.setPadding(0,0,16,0);
+                        tvBooksRead.setGravity(Gravity.END);
+
+                        row.addView(tvSrNo);
+                        row.addView(tvMember);
+                        row.addView(tvBooksRead);
+                        table.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                    }
                 }
 
                 btnSearch.setOnClickListener(new View.OnClickListener() {

@@ -34,4 +34,15 @@
     <dimen name="s6sp">6sp</dimen>
     <dimen name="s12sp">12sp</dimen>
     <dimen name="s14sp">14sp</dimen>
+    <dimen name="d500dp">500dp</dimen>
+    <dimen name="d12dp">12dp</dimen>
+    <dimen name="d600dp">600dp</dimen>
+    <dimen name="d225dp">225dp</dimen>
+    <dimen name="s48sp">48sp</dimen>
+    <dimen name="s96sp">96sp</dimen>
+    <dimen name="s44sp">44sp</dimen>
+    <dimen name="s40sp">40sp</dimen>
+    <dimen name="s84sp">84sp</dimen>
+    <dimen name="s76sp">76sp</dimen>
+    <dimen name="s36sp">36sp</dimen>
 </resources>

@@ -34,7 +34,7 @@ public class MemberActivity extends BaseActivity {
     private Toolbar toolbar;
     private SmartLibraryResponseModel libraryResponseModel;
     private ImageView ivLibraryLogo;
-    private TextView tvSrNo, tvMemberScheme, tvTotalMembers,title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, tvSrNo, tvMemberScheme, tvTotalMembers,title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
 
@@ -55,6 +55,7 @@ public class MemberActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         title.setSelected(true);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
@@ -68,7 +69,8 @@ public class MemberActivity extends BaseActivity {
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.member));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(R.string.member);
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             try {

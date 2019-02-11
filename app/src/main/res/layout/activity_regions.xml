@@ -13,13 +13,17 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginEnd="?android:attr/actionBarSize"
+            android:layout_marginRight="?android:attr/actionBarSize"
+            android:ellipsize="end"
             android:gravity="center"
+            android:singleLine="true"
             android:text="@string/regions"
             android:textColor="@color/white"
             android:textSize="@dimen/s16sp" />
+
     </android.support.v7.widget.Toolbar>
 
     <EditText

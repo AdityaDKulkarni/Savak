@@ -11,16 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            
-            android:textColor="@color/white"
-            android:textSize="@dimen/s16sp"
-            android:text="@string/search_books"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:text="@string/updated_libraries"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s16sp" />
+
+            <TextView
+                android:id="@+id/tv_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:layout_below="@id/tv_title"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s16sp" />
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
 
     <EditText

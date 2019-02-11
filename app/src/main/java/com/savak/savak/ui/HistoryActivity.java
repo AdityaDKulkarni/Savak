@@ -29,7 +29,7 @@ public class HistoryActivity extends BaseActivity {
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private String history = "";
     private ImageView ivLibraryLogo;
-    private TextView title, tvHistory, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView title, tvtitle2, tvHistory, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
 
@@ -51,6 +51,7 @@ public class HistoryActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -68,7 +69,8 @@ public class HistoryActivity extends BaseActivity {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
             libraryResponseModels = (ArrayList<SmartLibraryResponseModel>) getIntent().getExtras().get("list");
             int libraryId1 = libraryResponseModel.getLibraryId();
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.history));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(getString(R.string.history));
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int regionId = libraryResponseModel.getRegionId();

@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class ComplementModel implements Serializable {
     private String AboutThePerson;
     private int type;
+    private String website;
 
     public String getAboutThePerson() {
         return AboutThePerson;
@@ -144,5 +145,13 @@ public class ComplementModel implements Serializable {
 
     public int getType() {
         return type;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

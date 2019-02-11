@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.savak.savak.R;
@@ -42,6 +43,7 @@ public class SeachResultActivity extends BaseActivity {
     private Toolbar toolbar;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private EditText etSearchBook;
+    TextView tvtitle2;
     private Button btnSearchBook;
 
     @Override
@@ -62,6 +64,7 @@ public class SeachResultActivity extends BaseActivity {
         if (getIntent().hasExtra("list") && getIntent().hasExtra("book_name")) {
             libraryResponseModels = (ArrayList<SmartLibraryResponseModel>) getIntent().getExtras().get("list");
             String book_name = getIntent().getStringExtra("book_name");
+            tvtitle2.setText(getString(R.string.search_books) + " - " + book_name);
             rvBookSearch.setAdapter(new RecyclerAdapter(libraryResponseModels, this, book_name));
         }
 
@@ -89,6 +92,7 @@ public class SeachResultActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_back);
+        tvtitle2 = findViewById(R.id.tv_title_2);
     }
 
     @Override
@@ -180,6 +184,7 @@ public class SeachResultActivity extends BaseActivity {
                         object = jsonArray.getJSONObject(i);
                         model.setLibraryId(object.getInt("LibraryId"));
                         model.setDatabaseName(object.getString("DatabaseName"));
+                        model.setWebsite(object.getString("Website"));
                         model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
                         model.setLibraryName(object.getString("LibraryName"));
                         model.setResultCount(object.getInt("ResultCount"));

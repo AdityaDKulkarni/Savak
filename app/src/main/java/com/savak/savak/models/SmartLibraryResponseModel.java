@@ -9,6 +9,15 @@ public class SmartLibraryResponseModel extends Object implements Serializable {
     private String ToYear;
     private String FinancialYear;
     private int regionId;
+    private int MembershipTYpe;
+
+    public int getMembershipTYpe() {
+        return MembershipTYpe;
+    }
+
+    public void setMembershipTYpe(int membershipTYpe) {
+        MembershipTYpe = membershipTYpe;
+    }
 
     public int getFinancialYearId() {
         return financialYearId;

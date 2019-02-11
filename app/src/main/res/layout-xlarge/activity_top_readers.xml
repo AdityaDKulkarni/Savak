@@ -11,14 +11,29 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/s24sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s24sp" />
+
+            <TextView
+                android:id="@+id/tv_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title"
+                android:gravity="start"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s24sp" />
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
 
 
@@ -67,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/red"
-            android:layout_marginTop="@dimen/d8dp"
+            android:layout_alignTop="@id/tvLibraryContact"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/d8dp"
             android:singleLine="true"
@@ -162,10 +177,59 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvTopReaders"
-        android:layout_below="@id/relativeLayout2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/d8dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout2">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/dividerHorizontal"
+            android:showDividers="middle"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/srno"
+                    android:paddingStart="@dimen/d8dp"
+                    android:layout_gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/s24sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/d8dp"
+                    android:paddingLeft="@dimen/d8dp" />
+
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@string/book_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/s24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingEnd="@dimen/d16dp"
+                    android:text="@string/books_read"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/s24sp"
+                    android:textStyle="bold"
+                    android:paddingRight="@dimen/d16dp" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+
 </RelativeLayout>

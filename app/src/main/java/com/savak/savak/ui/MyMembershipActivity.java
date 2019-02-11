@@ -28,7 +28,7 @@ public class MyMembershipActivity extends BaseActivity {
     private SmartLibraryResponseModel libraryResponseModel;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private ImageView ivLibraryLogo;
-    private TextView title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
     private ListView lvMyMembership;
@@ -50,6 +50,7 @@ public class MyMembershipActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -63,7 +64,8 @@ public class MyMembershipActivity extends BaseActivity {
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.my_membership));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(R.string.my_membership);
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int regionId = libraryResponseModel.getRegionId();

@@ -11,14 +11,32 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/s24sp" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:text="@string/updated_libraries"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s24sp" />
+
+            <TextView
+                android:id="@+id/tv_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:layout_below="@id/tv_title"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/s24sp" />
+        </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
 
@@ -54,11 +72,11 @@
             android:id="@+id/tvLibraryFinancialYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/d8dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/d8dp"
             android:singleLine="true"
             android:textColor="@color/red"
+            android:layout_alignTop="@id/tvLibraryContact"
             android:textSize="@dimen/s24sp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/d8dp" />

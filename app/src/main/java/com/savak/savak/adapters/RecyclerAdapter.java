@@ -1,7 +1,9 @@
 package com.savak.savak.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -271,6 +274,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
         public void bindView(int position) {
             try {
+                if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
+                    tvLibraryName.setTextColor(Color.RED);
+                }
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
                 tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
@@ -401,6 +407,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void bindView(final int position) {
             try {
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
+                if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
+                    tvLibraryName.setTextColor(Color.RED);
+                }
                 tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
                 tvLibraryAddress2.setText(libraryResponseModels.get(position).getAddress2());
@@ -410,19 +419,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 tvLibraryName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(context, AboutUsActivity.class);
-                        intent.putExtra("library", libraryResponseModels.get(position));
-                        Log.e("Intent", libraryResponseModels.get(position).getSrNo() + "");
-                        context.startActivity(intent);
+                        if(libraryResponseModels.get(position).getMembershipTYpe() != 3){
+                            Intent intent = new Intent(context, AboutUsActivity.class);
+                            intent.putExtra("library", libraryResponseModels.get(position));
+                            Log.e("Intent", libraryResponseModels.get(position).getSrNo() + "");
+                            context.startActivity(intent);
+                        }
                     }
                 });
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(context, ControlPanelActivity.class);
-                        intent.putExtra("library", libraryResponseModels.get(position));
-                        context.startActivity(intent);
+                        if(libraryResponseModels.get(position).getMembershipTYpe() != 3) {
+                            Intent intent = new Intent(context, ControlPanelActivity.class);
+                            intent.putExtra("library", libraryResponseModels.get(position));
+                            context.startActivity(intent);
+                        }
                     }
                 });
             } catch (Exception e) {
@@ -445,7 +458,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
         public void bindView(int position) {
             try {
-                Glide.with(context).load("http://savak.in/CP/Uploads/ManagementBodyImages/" + managementBodyModels.get(position).getLogoImage()).into(ivManagementBodyPerson);
+                Glide.with(context).load("http://" + managementBodyModels.get(position).getWebsite() + "/CP/Uploads/ManagementBodyImages/" + managementBodyModels.get(position).getLogoImage()).into(ivManagementBodyPerson);
                 tvManagementBodyName.setText(managementBodyModels.get(position).getManagementBodyName());
                 tvManagementBodyProfile.setText(managementBodyModels.get(position).getProfileIdentity());
             } catch (Exception e) {
@@ -467,12 +480,33 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             tvProjectDesc = itemView.findViewById(R.id.tvProjectDesc);
         }
 
-        public void bindView(int position) {
+        public void bindView(final int position) {
             try {
-                Glide.with(context).load("http://savak.in/CP/Uploads/ProjectImages/" + socialProjectModels.get(position).getPhotoImage()).into(ivProject);
+                Glide.with(context).load("http://" + socialProjectModels.get(position).getWebsite() + "/CP/Uploads/ProjectImages/" + socialProjectModels.get(position).getPhotoImage()).into(ivProject);
                 tvProjectTitle.setText(socialProjectModels.get(position).getProjectTitle());
                 tvProjectDate.setText(socialProjectModels.get(position).getProjectDate());
                 tvProjectDesc.setText(socialProjectModels.get(position).getLongDesc());
+
+                ivProject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(SOAPUtils.isNetworkConnected(context)){
+                            View view1 = LayoutInflater.from(context).inflate(R.layout.image_zoom_layout, null, false);
+                            Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(view1);
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                            ImageView imageView = view1.findViewById(R.id.ivProjectPhoto);
+                            Glide.with(context).load("http://" + socialProjectModels.get(position).getWebsite() + "/CP/Uploads/ProjectImages/" + socialProjectModels.get(position).getPhotoImage()).into(imageView);
+
+                            dialog.show();
+                        }else{
+                            Toast.makeText(context, context.getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -492,12 +526,33 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             tvProjectDesc = itemView.findViewById(R.id.tvProjectDesc);
         }
 
-        public void bindView(int position) {
+        public void bindView(final int position) {
             try {
                 Glide.with(context).load(imageBaseUrl + complementModels.get(position).getScannedCopy()).into(ivProject);
                 tvProjectTitle.setText(complementModels.get(position).getComplementsBy());
                 tvProjectDate.setText(complementModels.get(position).getComplementDate());
                 tvProjectDesc.setText(complementModels.get(position).getDetails());
+
+                ivProject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(SOAPUtils.isNetworkConnected(context)){
+                            View view1 = LayoutInflater.from(context).inflate(R.layout.image_zoom_layout, null, false);
+                            Dialog dialog = new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(view1);
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                            ImageView imageView = view1.findViewById(R.id.ivProjectPhoto);
+                            Glide.with(context).load(imageBaseUrl + complementModels.get(position).getScannedCopy()).into(imageView);
+
+                            dialog.show();
+                        }else{
+                            Toast.makeText(context, context.getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

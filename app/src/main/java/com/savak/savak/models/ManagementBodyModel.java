@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class ManagementBodyModel implements Serializable {
     private String DateOfBirth;
+    private String website;
 
     public int getType() {
         return type;
@@ -225,5 +226,13 @@ public class ManagementBodyModel implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

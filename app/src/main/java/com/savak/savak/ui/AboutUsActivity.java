@@ -36,7 +36,7 @@ import java.util.HashMap;
 public class AboutUsActivity extends BaseActivity {
 
     private ImageView ivLibraryLogo;
-    private TextView tvLibraryAboutUS, tvFinancialYear, title, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView tvtitle2, tvLibraryAboutUS, tvFinancialYear, title, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private Toolbar toolbar;
     private String aboutUs = "";
     private SmartLibraryResponseModel libraryResponseModel;
@@ -60,6 +60,7 @@ public class AboutUsActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         tvLibraryAboutUS = findViewById(R.id.tvLibraryAboutUs);
         tvLibraryAboutUS.setMovementMethod(new ScrollingMovementMethod());
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -71,7 +72,8 @@ public class AboutUsActivity extends BaseActivity {
         tvFinancialYear = findViewById(R.id.tvLibraryFinancialYear);
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.about_us));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText( getString(R.string.about_us));
             try {
                 Glide.with(this).load(libraryResponseModel.getLogoImage()).into(ivLibraryLogo);
                 tvLibraryAddress1.setText(libraryResponseModel.getAddress1());

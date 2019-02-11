@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class SocialProjectModel implements Serializable{
     private int type;
     private String LongDesc;
+    private String website;
 
     public String getLongDesc() {
         return LongDesc;
@@ -144,5 +145,13 @@ public class SocialProjectModel implements Serializable{
 
     public int getType() {
         return type;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

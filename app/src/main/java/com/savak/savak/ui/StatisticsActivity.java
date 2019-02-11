@@ -29,7 +29,7 @@ public class StatisticsActivity extends BaseActivity {
     private SmartLibraryResponseModel libraryResponseModel;
     private ArrayList<SmartLibraryResponseModel> libraryResponseModels;
     private ImageView ivLibraryLogo;
-    private TextView title, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
+    private TextView title, tvtitle2, tvFinancialYear, tvLibraryAddress1, tvLibraryAddress2, tvLibraryMCity, tvLibraryPin, tvLibraryContact;
     private EditText etSearchBook;
     private Button btnSearch;
     private ListView lvStatistics;
@@ -51,6 +51,7 @@ public class StatisticsActivity extends BaseActivity {
 
     private void initui() {
         title = toolbar.findViewById(R.id.tv_title);
+        tvtitle2 = toolbar.findViewById(R.id.tv_title_2);
         etSearchBook = findViewById(R.id.etSeachBook);
         btnSearch = findViewById(R.id.btnSearch);
         ivLibraryLogo = findViewById(R.id.ivLibraryLogo);
@@ -64,7 +65,8 @@ public class StatisticsActivity extends BaseActivity {
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName() + " - " + getString(R.string.numerology));
+            title.setText(libraryResponseModel.getLibraryName());
+            tvtitle2.setText(getString(R.string.numerology));
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int regionId = libraryResponseModel.getRegionId();
