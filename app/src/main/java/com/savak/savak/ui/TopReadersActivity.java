@@ -70,7 +70,7 @@ public class TopReadersActivity extends BaseActivity {
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
             title.setText(libraryResponseModel.getLibraryName());
-            tvtitle2.setText(getString(R.string.top_10_readers));
+            tvtitle2.setText(getString(R.string.top_50_readers));
             final int libraryId = libraryResponseModel.getLibraryId();
             final int yearId = libraryResponseModel.getFinancialYearId();
             final String databaseName = libraryResponseModel.getDatabaseName();

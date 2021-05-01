@@ -15,7 +15,7 @@
     <string name="smart_library">|| स्मार्ट लायब्ररी ||</string>
     <string name="cannot_be_empty">रिक्त असू शकत नाही!</string>
     <string name="something_went_wrong">अंतर्गत सर्व्हर त्रुटी!</string>
-    <string name="nothing_to_show">"दर्शविण्यासाठी काहीच नाही "</string>
+    <string name="nothing_to_show">माहिती उपलब्ध नाही</string>
     <string name="about_us">माहिती</string>
     <string name="contact">संपर्क क्र. %1$s</string>
     <string name="history">इतिहास</string>
@@ -52,4 +52,6 @@
     <string name="books_read">वाचलेली पुस्तके</string>
     <string name="member_schemes">सभासद योजना</string>
     <string name="total_members">एकूण सभासद</string>
+    <string name="top_50_readers">"५० उत्कृष्ट वाचक "</string>
+    <string name="popular_50_books">५० वाचकप्रिय पुस्तके</string>
 </resources>

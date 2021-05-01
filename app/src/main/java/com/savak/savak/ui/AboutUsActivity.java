@@ -1,5 +1,7 @@
 package com.savak.savak.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -86,7 +88,7 @@ public class AboutUsActivity extends BaseActivity {
                 if (SOAPUtils.isNetworkConnected(AboutUsActivity.this)) {
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("LibraryId", libraryResponseModel.getSrNo());
-                    map.put("DatabaseName", "LIBRARY");
+                    map.put("DatabaseName", libraryResponseModel.getDatabaseName());
                     new GetAboutUsTask(URLConstants.ABOUT_US_ACTION, map, this).execute();
                 } else {
                     Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
@@ -147,11 +149,16 @@ public class AboutUsActivity extends BaseActivity {
                 Log.e(TAG, response);
                 resultJSONArray = new JSONArray(response);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (final Exception e) {
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle(context.getString(R.string.error));
+                        builder.setMessage(e.getMessage());
+                        builder.create().show();
+                    }
+                });
                 e.printStackTrace();
             }
             return resultJSONArray;
@@ -170,15 +177,25 @@ public class AboutUsActivity extends BaseActivity {
                             financialYear = jsonArray.getJSONObject(i).getString("Financial Year");
                         }
                         if(i > 1) {
-                            if (srno == jsonArray.getJSONObject(i).getInt("LibraryId")) {
-                                aboutUs += jsonArray.getJSONObject(i).getString("AboutUsNote") + "\n";
-                            }
+                            //Log.e(TAG, "onPostExecute: " + jsonArray.getJSONObject(i).getInt("LibraryId"));
+                            aboutUs += jsonArray.getJSONObject(i).getString("AboutUsNote") + "\n";
+//                            if (srno == jsonArray.getJSONObject(i).getInt("LibraryId")) {
+//                            }
                         }
                     }
                     tvLibraryAboutUS.setText(aboutUs);
                     tvFinancialYear.setText(financialYear);
-                } catch (Exception e) {
-
+                } catch (final Exception e) {
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle(context.getString(R.string.error));
+                            builder.setMessage(e.getMessage());
+                            builder.create().show();
+                        }
+                    });
+                    e.printStackTrace();
                 }
             } else if (code == 200) {
                 Toast.makeText(context, context.getString(R.string.nothing_to_show), Toast.LENGTH_LONG).show();

@@ -29,7 +29,7 @@ public class SOAPUtils {
                     + "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'  xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>"
                     + "<soap:Body>" + "<" + METHOD
 
-                    + " xmlns='http://tantraved.in/'>" + createRequest(map)
+                    + " xmlns='" + URLConstants.COMPANY_BASE_URL + "'>" + createRequest(map)
                     + "</" + METHOD + ">" + "</soap:Body>"
                     + "</soap:Envelope>";
         }

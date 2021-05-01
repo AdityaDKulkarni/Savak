@@ -105,8 +105,8 @@ public class StatisticsActivity extends BaseActivity {
                         getString(R.string.granthsampada),
                         getString(R.string.current_year_book_purchase),
                         getString(R.string.type_wise_reading),
-                        getString(R.string.popular_10_books),
-                        getString(R.string.top_10_readers),
+                        getString(R.string.popular_50_books),
+                        getString(R.string.top_50_readers),
                         getString(R.string.membership_schemes),
                         getString(R.string.member)
                 };
@@ -130,12 +130,12 @@ public class StatisticsActivity extends BaseActivity {
                                 map.put("FinancialYearId", libraryResponseModel.getFinancialYearId());
                                 new LibraryTasks(URLConstants.ACTION_TYPE_WISE_READING, map, StatisticsActivity.this).execute();
                             }
-                            if (strings[i].equalsIgnoreCase(getString(R.string.popular_10_books))) {
+                            if (strings[i].equalsIgnoreCase(getString(R.string.popular_50_books))) {
                                 map.put("library", libraryResponseModel);
                                 map.put("FinancialYearId", libraryResponseModel.getFinancialYearId());
                                 new LibraryTasks(URLConstants.READERS_CHOICE_ACTION, map, StatisticsActivity.this).execute();
                             }
-                            if (strings[i].equalsIgnoreCase(getString(R.string.top_10_readers))) {
+                            if (strings[i].equalsIgnoreCase(getString(R.string.top_50_readers))) {
                                 map.put("library", libraryResponseModel);
                                 map.put("FinancialYearId", libraryResponseModel.getFinancialYearId());
                                 new LibraryTasks(URLConstants.ACTION_TOP_10_READERS, map, StatisticsActivity.this).execute();

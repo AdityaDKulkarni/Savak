@@ -274,9 +274,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
         public void bindView(int position) {
             try {
-                if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
+                /*if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
                     tvLibraryName.setTextColor(Color.RED);
-                }
+                }*/
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
                 tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
@@ -407,9 +407,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void bindView(final int position) {
             try {
                 Glide.with(context).load(libraryResponseModels.get(position).getLogoImage()).into(ivLibraryLogo);
-                if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
+                /*if(libraryResponseModels.get(position).getMembershipTYpe() == 3){
                     tvLibraryName.setTextColor(Color.RED);
-                }
+                }*/
                 tvLibraryName.setText(libraryResponseModels.get(position).getLibraryName());
                 tvLibraryAddress1.setText(libraryResponseModels.get(position).getAddress1());
                 tvLibraryAddress2.setText(libraryResponseModels.get(position).getAddress2());
@@ -579,6 +579,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
         public void bindView(int position) {
             try {
+                if(bookModels.get(position).isAvailable()){
+                    tvBookTitle.setTextColor(context.getResources().getColor(R.color.green));
+                }else{
+                    tvBookTitle.setTextColor(context.getResources().getColor(R.color.red));
+                }
                 Glide.with(context).load(imageBaseUrl + bookModels.get(position).getBookImage()).into(ivBookCover);
                 tvBookNo.setText(bookModels.get(position).getBookInwardNo() + " / " + bookModels.get(position).getBookNo());
                 tvBookTitle.setText(bookModels.get(position).getBookTitle());

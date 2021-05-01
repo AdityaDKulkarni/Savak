@@ -1,5 +1,7 @@
 package com.savak.savak.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -183,7 +185,16 @@ public class BookResultActivity extends BaseActivity {
                     resultJSONArray = new JSONArray(response);
                     return resultJSONArray;
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BookResultActivity.this);
+                        builder.setTitle(getString(R.string.error));
+                        builder.setMessage(e.getMessage());
+                        builder.create().show();
+                    }
+                });
                 e.printStackTrace();
             }
             return null;
@@ -211,12 +222,22 @@ public class BookResultActivity extends BaseActivity {
                             bookModel.setBookNo(object.getString("BookNo"));
                             bookModel.setBookTitle(object.getString("BookTitle"));
                             bookModel.setPublisherName(object.getString("PublisherName"));
+                            bookModel.setAvailable(object.getBoolean("IsAvailable"));
                             bookModel.setType(ActionTypes.TYPE_NEW_BOOKS);
                             bookModels.add(bookModel);
                         }
                     }
                     rvNewBooks.setAdapter(new RecyclerAdapter(BookResultActivity.this, "http://savak.in/CP/Uploads/BookImages/", bookModels));
-                } catch (Exception e) {
+                } catch (final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(BookResultActivity.this);
+                            builder.setTitle(getString(R.string.error));
+                            builder.setMessage(e.getMessage());
+                            builder.create().show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             } else if (code == 200) {

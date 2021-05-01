@@ -45,4 +45,8 @@
     <dimen name="s84sp">84sp</dimen>
     <dimen name="s76sp">76sp</dimen>
     <dimen name="s36sp">36sp</dimen>
+    <dimen name="s28sp">28sp</dimen>
+    <dimen name="s32sp">32sp</dimen>
+    <dimen name="s30sp">30sp</dimen>
+    <dimen name="s70sp">70sp</dimen>
 </resources>

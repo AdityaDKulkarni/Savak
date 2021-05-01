@@ -65,7 +65,6 @@ public class HistoryActivity extends BaseActivity {
         tvFinancialYear = findViewById(R.id.tvLibraryFinancialYear);
 
         if (getIntent().hasExtra("library") && getIntent().hasExtra("list")) {
-            Log.e("History", String.valueOf(getIntent().hasExtra("list")));
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
             libraryResponseModels = (ArrayList<SmartLibraryResponseModel>) getIntent().getExtras().get("list");
             int libraryId1 = libraryResponseModel.getLibraryId();
@@ -111,6 +110,7 @@ public class HistoryActivity extends BaseActivity {
                         history += libraryResponseModels.get(i).getHistory() + "\n";
                     }
                 }
+                Log.e("History @@@@@@@@@@@@@@@@@@@@@", history);
                 tvHistory.setText(history);
             } catch (Exception e) {
                 e.printStackTrace();

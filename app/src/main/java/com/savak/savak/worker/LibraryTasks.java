@@ -1,5 +1,7 @@
 package com.savak.savak.worker;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +37,7 @@ import com.savak.savak.utils.ActionTypes;
 import com.savak.savak.utils.ProgressDialogUtil;
 import com.savak.savak.utils.SOAPUtils;
 import com.savak.savak.utils.URLConnectionUtil;
+import com.savak.savak.utils.URLConstants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -105,12 +108,21 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                     builder.append(line + "\n");
                 }
                 String response = builder.toString();
-                Log.e(TAG, response);
+                Log.e(TAG + " server response: ", response);
 
                 resultJSONArray = new JSONArray(response);
                 return resultJSONArray;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle(context.getString(R.string.error));
+                    builder.setMessage(e.getMessage());
+                    builder.create().show();
+                }
+            });
             e.printStackTrace();
         }
         return null;
@@ -127,12 +139,12 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
             JSONObject object = null;
             try {
                 switch (ACTION) {
-                    case "http://tantraved.in/SmartSearch":
+                    case "http://smartlibraries.in/SmartSearch":
                         libraryResponseModels = new ArrayList();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             model = new SmartLibraryResponseModel();
                             object = jsonArray.getJSONObject(i);
-                            model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
+                            model.setLogoImage(URLConstants.IMAGE_BASE_URL + object.getString("LogoImage"));
                             model.setLibraryId(object.getInt("LibraryId"));
                             model.setDatabaseName(object.getString("DatabaseName"));
                             model.setLibraryName(object.getString("LibraryName"));
@@ -143,7 +155,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent = new Intent(context, SeachResultActivity.class);
                         intent.putExtra("book_name", map.get("SearchParam").toString());
                         break;
-                    case "http://tantraved.in/GetRegions":
+                    case "http://smartlibraries.in/GetRegions":
                         libraryResponseModels = new ArrayList();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             model = new SmartLibraryResponseModel();
@@ -162,14 +174,14 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent = new Intent(context, RegionsActivity.class);
                         intent.putExtra("book_name", "");
                         break;
-                    case "http://tantraved.in/GetSmartLibraries":
+                    case "http://smartlibraries.in/GetSmartLibraries":
                         libraryResponseModels = new ArrayList();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             model = new SmartLibraryResponseModel();
                             object = jsonArray.getJSONObject(i);
                             model.setSrNo(object.getInt("SrNo"));
                             model.setLibraryId(object.getInt("LibraryId"));
-                            model.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + object.getString("LogoImage"));
+                            model.setLogoImage(URLConstants.IMAGE_BASE_URL + object.getString("LogoImage"));
                             model.setLibraryName(object.getString("LibraryName"));
                             model.setAddress1(object.getString("Address1"));
                             model.setAddress2(object.getString("Address2"));
@@ -186,8 +198,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent = new Intent(context, RegionSpecificLibrariesActivity.class);
                         intent.putExtra("book_name", "");
                         break;
-
-                    case "http://tantraved.in/GetHistory":
+                    case "http://smartlibraries.in/GetHistory":
                         libraryResponseModels = new ArrayList();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             model = new SmartLibraryResponseModel();
@@ -199,15 +210,16 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                             }
                             if (i > 1) {
                                 model.setSrNo(object.getInt("SrNo"));
-                                model.setLibraryId(object.getInt("LibraryId"));
+                                model.setLibraryId(object.optInt("LibraryId"));
                                 model.setHistory(object.getString("History"));
+                                Log.e(TAG, "onPostExecute: " + object.getString("History") + "  "   + model.getHistory());
                                 libraryResponseModels.add(model);
                             }
                         }
                         intent = new Intent(context, HistoryActivity.class);
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
-                    case "http://tantraved.in/GetManagementBody":
+                    case "http://smartlibraries.in/GetManagementBody":
                         managementBodyModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             ManagementBodyModel bodyModel = new ManagementBodyModel();
@@ -243,7 +255,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("management", managementBodyModels);
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
-                    case "http://tantraved.in/GetSocialProjects":
+                    case "http://smartlibraries.in/GetSocialProjects":
                         socialProjectModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             SocialProjectModel socialProjectModel = new SocialProjectModel();
@@ -276,7 +288,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("social", socialProjectModels);
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
-                    case "http://tantraved.in/GetComplements":
+                    case "http://smartlibraries.in/GetComplements":
                         complementModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             ComplementModel complementModel = new ComplementModel();
@@ -308,7 +320,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("complements", complementModels);
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
-                    case "http://tantraved.in/GetNewBooks":
+                    case "http://smartlibraries.in/GetNewBooks":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -328,6 +340,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                                 bookModel.setBookNo(object.getString("BookNo"));
                                 bookModel.setBookTitle(object.getString("BookTitle"));
                                 bookModel.setPublisherName(object.getString("PublisherName"));
+                                bookModel.setAvailable(object.getBoolean("IsAvailable"));
                                 bookModel.setType(ActionTypes.TYPE_NEW_BOOKS);
                                 bookModels.add(bookModel);
                             }
@@ -336,7 +349,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("books", bookModels);
                         break;
-                    case "http://tantraved.in/GetRareBooks":
+                    case "http://smartlibraries.in/GetRareBooks":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -356,6 +369,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                                 bookModel.setBookNo(object.getString("BookNo"));
                                 bookModel.setBookTitle(object.getString("BookTitle"));
                                 bookModel.setPublisherName(object.getString("PublisherName"));
+                                bookModel.setAvailable(object.getBoolean("IsAvailable"));
                                 bookModel.setType(ActionTypes.TYPE_NEW_BOOKS);
                                 bookModels.add(bookModel);
                             }
@@ -364,7 +378,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("books", bookModels);
                         break;
-                    case "http://tantraved.in/GetFinancialYear":
+                    case "http://smartlibraries.in/GetFinancialYear":
                         for (int i = 0; i < jsonArray.length(); i++) {
                             model = (SmartLibraryResponseModel) map.get("library");
                             object = jsonArray.getJSONObject(i);
@@ -386,7 +400,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                             intent.putExtra("library", model);
                         }
                         break;
-                    case "http://tantraved.in/GetBookStatistics":
+                    case "http://smartlibraries.in/GetBookStatistics":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -407,7 +421,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("statistics", bookModels);
                         break;
-                    case "http://tantraved.in/GetReadersChoice":
+                    case "http://smartlibraries.in/GetReadersChoice":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -434,13 +448,13 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("books", bookModels);
                         break;
-                    case "http://tantraved.in/SearchBooksWithLibraryDetails":
+                    case "http://smartlibraries.in/SearchBooksWithLibraryDetails":
                         bookModels = new ArrayList<>();
                         SmartLibraryResponseModel libraryResponseModel = new SmartLibraryResponseModel();
                         libraryResponseModel.setSrNo(jsonArray.getJSONObject(0).getInt("SrNo"));
                         libraryResponseModel.setLibraryId(jsonArray.getJSONObject(0).getInt("LibraryId"));
                         libraryResponseModel.setWebsite(jsonArray.getJSONObject(0).getString("Website"));
-                        libraryResponseModel.setLogoImage("http://www.tantraved.in/CP/Uploads/LibraryInfo/" + jsonArray.getJSONObject(0).getString("LogoImage"));
+                        libraryResponseModel.setLogoImage(URLConstants.IMAGE_BASE_URL + jsonArray.getJSONObject(0).getString("LogoImage"));
                         libraryResponseModel.setLibraryName(jsonArray.getJSONObject(0).getString("LibraryName"));
                         libraryResponseModel.setAddress1(jsonArray.getJSONObject(0).getString("Address1"));
                         libraryResponseModel.setAddress2(jsonArray.getJSONObject(0).getString("Address2"));
@@ -465,6 +479,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                                 bookModel.setBookNo(object.getString("BookNo"));
                                 bookModel.setBookTitle(object.getString("BookTitle"));
                                 bookModel.setPublisherName(object.getString("PublisherName"));
+                                bookModel.setAvailable(object.getBoolean("IsAvailable"));
                                 bookModel.setType(ActionTypes.TYPE_NEW_BOOKS);
                                 bookModels.add(bookModel);
                             }
@@ -474,7 +489,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("book_name", String.valueOf(map.get("SearchParam")));
                         intent.putExtra("books", bookModels);
                         break;
-                    case "http://tantraved.in/BookTypewiseReadingCount":
+                    case "http://smartlibraries.in/BookTypewiseReadingCount":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -491,7 +506,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("types", bookModels);
                         break;
-                    case "http://tantraved.in/GetTop10Readers":
+                    case "http://smartlibraries.in/GetTop10Readers":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -515,7 +530,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         intent.putExtra("readers", bookModels);
                         break;
-                    case "http://tantraved.in/GetMembershipPlans":
+                    case "http://smartlibraries.in/GetMembershipPlans":
                         membershipModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             if (i == 1) {
@@ -539,7 +554,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
 
-                    case "http://tantraved.in/GetMemberStatistics":
+                    case "http://smartlibraries.in/GetMemberStatistics":
                         membershipModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             if (i == 1) {
@@ -561,7 +576,7 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                         intent.putExtra("library", (SmartLibraryResponseModel) map.get("library"));
                         break;
 
-                    case "http://tantraved.in/GetBookTypewisePurchase":
+                    case "http://smartlibraries.in/GetBookTypewisePurchase":
                         bookModels = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             BookModel bookModel = new BookModel();
@@ -588,7 +603,16 @@ public class LibraryTasks extends AsyncTask<Void, Void, JSONArray> {
                     intent.putExtra("list", libraryResponseModels);
                     context.startActivity(intent);
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle(context.getString(R.string.error));
+                        builder.setMessage(e.getMessage());
+                        builder.create().show();
+                    }
+                });
                 e.printStackTrace();
             }
         } else if (code == 200) {

@@ -20,7 +20,7 @@
         android:textStyle="bold"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textSize="@dimen/s76sp"
+        android:textSize="@dimen/s70sp"
         android:layout_below="@id/ivMhLibraries"/>
 
     <ImageView

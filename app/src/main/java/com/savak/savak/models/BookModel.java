@@ -15,6 +15,7 @@ public class BookModel implements Serializable {
     private double totalAmount;
     private String Author, BookType, PublisherName, BookTitle, BookImage, BookInwardNo, BookNo, UserName, Member, MemberImage;
     private String website;
+    private boolean IsAvailable;
 
     public int getMemberId() {
         return MemberId;
@@ -142,5 +143,13 @@ public class BookModel implements Serializable {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public boolean isAvailable() {
+        return IsAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        IsAvailable = available;
     }
 }

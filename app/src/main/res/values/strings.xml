@@ -52,4 +52,7 @@
     <string name="books_read">books_read</string>
     <string name="member_schemes">Member schemes</string>
     <string name="total_members">Total members</string>
+    <string name="popular_50_books">Popular 50 books</string>
+    <string name="top_50_readers">Top 50 readers</string>
+    <string name="error">Error</string>
 </resources>

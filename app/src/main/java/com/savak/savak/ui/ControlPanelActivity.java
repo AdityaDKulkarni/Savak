@@ -1,5 +1,7 @@
 package com.savak.savak.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -105,7 +107,7 @@ public class ControlPanelActivity extends BaseActivity {
 
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
-            title.setText(libraryResponseModel.getLibraryName());
+            title.setText(libraryResponseModel.getLibraryName() + " (" + libraryResponseModel.getSrNo() + ")");
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int regionId = libraryResponseModel.getRegionId();
@@ -257,7 +259,16 @@ public class ControlPanelActivity extends BaseActivity {
                     resultJSONArray = new JSONArray(response);
                     return resultJSONArray;
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle(context.getString(R.string.error));
+                        builder.setMessage(e.getMessage());
+                        builder.create().show();
+                    }
+                });
                 e.printStackTrace();
             }
             return null;
@@ -280,7 +291,16 @@ public class ControlPanelActivity extends BaseActivity {
                         libraryResponseModel.setToYear(object.getString("ToYear"));
                     }
                     tvFinancialYear.setText(libraryResponseModel.getFinancialYear());
-                } catch (Exception e) {
+                } catch (final Exception e) {
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle(context.getString(R.string.error));
+                            builder.setMessage(e.getMessage());
+                            builder.create().show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             } else if (code == 200) {

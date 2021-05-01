@@ -69,7 +69,7 @@ public class ReadersChoiceActivity extends BaseActivity {
         if (getIntent().hasExtra("library")) {
             libraryResponseModel = (SmartLibraryResponseModel) getIntent().getExtras().get("library");
             title.setText(libraryResponseModel.getLibraryName());
-            tvtitle2.setText(getString(R.string.popular_10_books));
+            tvtitle2.setText(getString(R.string.popular_50_books));
             final int libraryId = libraryResponseModel.getLibraryId();
             final String databaseName = libraryResponseModel.getDatabaseName();
             final int yearId = libraryResponseModel.getFinancialYearId();
